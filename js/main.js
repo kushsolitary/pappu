@@ -116,13 +116,14 @@ mit.main = function() {
     mit.PakiaUtils.cur_pakia = false;
   };
 
+/*
   document.addEventListener('touchstart', function() {
     if (!mit.game_started)    
       startGame();
 
     return false;
   }, false);
-
+*/
 
 
   // startGame();
