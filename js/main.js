@@ -45,6 +45,7 @@ mit.main = function() {
   var H = canvas.height = 500;
 
   var music = document.getElementById("start");
+  var flap = document.getElementById("flap");
   music.volume = 0.2;
   
   var isMute = false;
