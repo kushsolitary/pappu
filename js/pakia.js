@@ -4,7 +4,7 @@
 
     // Default type will be angry
     this.type = 'angry';
-    this.sound = document.getElementById("jump1");
+    this.sound = mit.audio.loadAngry;
 
     // Cheating on a bit with the physics
     // cant have same gravity for pappu and pakias :(
@@ -60,9 +60,9 @@
 
     // Sounds
     sounds: [
-      document.getElementById("angry_jump"),
-      document.getElementById("sad_jump"),
-      document.getElementById("happy_jump")
+      mit.audio.loadAngry,
+      mit.audio.loadSad,
+      mit.audio.loadHappy
     ],      
 
     pakia_img: {

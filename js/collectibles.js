@@ -25,7 +25,7 @@
     this.type;
 
     // Sound
-    this.sound = document.getElementById("ting");
+    this.sound = mit.audio.loadTing;
     this.sound.volume = 0.35;
 
     // Some collectible types may have subtypes

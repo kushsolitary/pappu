@@ -26,7 +26,7 @@
     max_fly_frame_count: 10,
 
     init: function() {
-      this.sound = document.getElementById("flap");
+      this.sound = mit.audio.loadFlap;
 
       // Initializing Pappu Sprite, lolzzz..!
       // this.sprite = new Image();

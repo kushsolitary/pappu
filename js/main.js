@@ -38,14 +38,16 @@ mit.main = function() {
 
   // Main Canvas
 
-  var canvas = document.getElementById('game_main');
+  var canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
+
   var ctx = canvas.getContext('2d');
 
   var W = canvas.width = 1000;
   var H = canvas.height = 500;
 
-  var music = document.getElementById("start");
-  var flap = document.getElementById("flap");
+  var music = mit.audio.loadMusic;
+  var flap = mit.audio.loadFlap;
   music.volume = 0.2;
   
   var isMute = false;
@@ -74,10 +76,15 @@ mit.main = function() {
   mit.game_over = 0;
   mit.start_btn_clicked = 0;
 
+  music.addEventListener('ended', function() {
+    music.play();
+  }, false)
+
   // Start Button
   var startGame = function() {
     // Play the awesome music! Really awesome
     music.play();
+
     flap.pause();
 
     // Hide the Start Screen

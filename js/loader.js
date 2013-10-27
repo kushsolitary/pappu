@@ -9,24 +9,28 @@
       return size;
   };
 
-  // Preloading audio stuff
-  var loadMusic = document.getElementById("start"),
-      loadAngry = document.getElementById("angry_jump"), 
-      loadSad = document.getElementById("sad_jump"),
-      loadHappy = document.getElementById("happy_jump"),
-      loadFlap = document.getElementById("flap"),
-      loadTing = document.getElementById("ting");
-
   // Preloading image stuff
 
-  mit.audio = [
-    loadMusic, 
-    loadAngry, 
-    loadSad, 
-    loadHappy,
-    loadFlap, 
-    loadTing,
-  ];
+  mit.audio = {
+    loadMusic: 'sound/pappu-pakia2.3.mp3', 
+    loadAngry: 'sound/jump1.mp3', 
+    loadSad: 'sound/jump2.mp3', 
+    loadHappy: 'sound/jump3.mp3',
+    loadFlap: 'sound/flap.mp3', 
+    loadTing: 'sound/ting.mp3',
+  };
+
+    for (var name in mit.audio) {
+      var url = mit.audio[name];
+
+      // Create an audio node
+      var audio_el = document.createElement('audio');
+      audio_el.id = name;
+
+        audio_el.src = url;
+        audio_el.load();
+        mit.audio[name] = audio_el;
+    }
 
   var images = {
     angry_pakia : "img/angry_pakia.png",
@@ -58,39 +62,9 @@
 
   // Get the size of an Obj
   var size = Obj.size(images);
-  size += mit.audio.length;
 
   var counter = 0,
       percent = 0;
-
-  if(!($.browser.webkit && !$.browser.chrome)) {
-    for(var i = 0; i < mit.audio.length; i++) {
-      var file = mit.audio[i];
-
-      if (isNaN(file.duration)) { 
-        file.addEventListener("loadeddata", function() {
-          counter++;
-          percent = Math.floor((counter/size*100));
-
-          if(percent >= 100) {
-            mit.main();
-          }
-        });
-      }
-
-      else {
-        counter++;
-        percent = Math.floor((counter/size*100));
-
-        if(percent >= 100) {
-          mit.main();
-        }
-
-      }
-    }
-  }
-
-  else {counter += mit.audio.length}
 
   for(var src in images) {
     mit.image[src] = new Image();
