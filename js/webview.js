@@ -12,4 +12,4 @@ CocoonJS
 
 CocoonJS
   .App
-  .loadInTheWebView('game_screen.html');
+  .loadInTheWebView('../game_screen.html');
