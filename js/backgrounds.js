@@ -108,18 +108,17 @@
     drawClouds: function(ctx) {
       var cloud_bg_vx_abs = Math.abs(this.cloud_bg_vx);
 
-      /*
       // fixing weird indexSizeError bugs for the most nonsensical browsers - opera and IE
       try {
         ctx.drawImage(
           this.cloud_img,
 
           cloud_bg_vx_abs,
-          0,
+          this.cloud_img.height - mit.H,
           mit.W + this.cloud_bg_vx,
           mit.H,
 
-          0, mit.H - this.cloud_img.height,
+          0, 0,
           mit.W + this.cloud_bg_vx,
           mit.H
         );
@@ -127,37 +126,22 @@
         ctx.drawImage(
           this.cloud_img,
 
-          0, 0,
+          0, this.cloud_img.height - mit.H,
           cloud_bg_vx_abs,
           mit.H,
 
           mit.W + this.cloud_bg_vx,
-          mit.H - this.cloud_img.height,
+          0,
           cloud_bg_vx_abs,
           mit.H
         );
       }
       catch(e) {}
-      */
-
       this.cloud_bg_vx -= this.cloud_bg_move_speed;
 
-      /*
       if (-this.cloud_bg_vx >= mit.W) {
         this.cloud_bg_vx = 0;
       }
-      */
-
-      try {
-        ctx.save();
-        ctx.translate(this.cloud_bg_vx, mit.H - this.ground_img.height);
-
-        var cloud_pat = ctx.createPattern(this.cloud_img, 'repeat-x');
-        ctx.fillStyle = cloud_pat;
-
-        ctx.fillRect(- this.cloud_bg_vx, - (mit.H - this.ground_img.height), mit.W, 2 * mit.H);
-        ctx.restore();
-      } catch(e) {}
 
       return;
     },
@@ -171,11 +155,11 @@
           this.backtree_img,
 
           backtree_bg_vx_abs,
-          0,
+          this.backtree_img.height - mit.H,
           mit.W + this.backtree_bg_vx,
           mit.H,
 
-          0, mit.H - this.backtree_img.height,
+          0, 0,
           mit.W + this.backtree_bg_vx,
           mit.H
         );
@@ -183,12 +167,12 @@
         ctx.drawImage(
           this.backtree_img,
 
-          0, 0,
+          0, this.backtree_img.height - mit.H,
           backtree_bg_vx_abs,
           mit.H,
 
           mit.W + this.backtree_bg_vx,
-          mit.H - this.backtree_img.height,
+          0,
           backtree_bg_vx_abs,
           mit.H
         );
@@ -214,11 +198,11 @@
           this.fronttree_img,
 
           fronttree_bg_vx_abs,
-          0,
+          this.fronttree_img.height - mit.H,
           mit.W + this.fronttree_bg_vx,
           mit.H,
 
-          0, mit.H - this.fronttree_img.height,
+          0, 0,
           mit.W + this.fronttree_bg_vx,
           mit.H
         );
@@ -226,12 +210,12 @@
         ctx.drawImage(
           this.fronttree_img,
 
-          0, 0,
+          0, this.fronttree_img.height - mit.H,
           fronttree_bg_vx_abs,
           mit.H,
 
           mit.W + this.fronttree_bg_vx,
-          mit.H - this.fronttree_img.height,
+          0,
           fronttree_bg_vx_abs,
           mit.H
         );
@@ -250,55 +234,41 @@
     drawGround: function(ctx) {
       var ground_bg_vx_abs = Math.abs(this.ground_bg_vx);
       // fixing weird indexSizeError bugs for the most nonsensical browsers - opera and IE
-      /*
       try {
         ctx.drawImage(
           this.ground_img,
 
           ground_bg_vx_abs,
-          0,
-          this.ground_img.width + this.ground_bg_vx,
+          this.ground_img.height - mit.H,
+          mit.W + this.ground_bg_vx,
           mit.H,
 
-          0, mit.H - this.ground_img.height,
-          this.ground_img.width + this.ground_bg_vx,
+          0, 0,
+          mit.W + this.ground_bg_vx,
           mit.H
         );
 
         ctx.drawImage(
           this.ground_img,
 
-          0, 0,
-          mit.W + ground_bg_vx_abs,
+          0, this.ground_img.height - mit.H,
+          ground_bg_vx_abs,
           mit.H,
 
-          this.ground_img.width + this.ground_bg_vx,
-          mit.H - this.ground_img.height,
-          mit.W + ground_bg_vx_abs,
+          mit.W + this.ground_bg_vx,
+          0,
+          ground_bg_vx_abs,
           mit.H
         );
       }
       catch(e) {}
-*/
 
       if (mit.game_started)
         this.ground_bg_vx -= this.ground_bg_move_speed * this.common_bg_speed;
 
-/*
-      if (this.ground_bg_vx + 2*this.ground_img.width < mit.W) {
-        this.ground_bg_vx = - this.ground_bg_vx + 2*this.ground_img.width;
+      if (-this.ground_bg_vx >= mit.W) {
+        this.ground_bg_vx = 0;
       }
-*/    
-      try {
-        ctx.save();
-        ctx.translate(this.ground_bg_vx, mit.H - this.ground_img.height);
-
-        var ground_pat = ctx.createPattern(this.ground_img, 'repeat-x');
-        ctx.fillStyle = ground_pat;
-
-        ctx.fillRect(- this.ground_bg_vx, - (mit.H - this.ground_img.height), mit.W, 2 * mit.H);
-        ctx.restore();
-      } catch(e) {}
 
       // console.log(-this.ground_bg_vx);
 
@@ -313,11 +283,11 @@
           this.grass_img,
 
           grass_bg_vx_abs,
-          0,
+          this.grass_img.height - mit.H,
           mit.W + this.grass_bg_vx,
           mit.H,
 
-          0, mit.H - this.grass_img.height,
+          0, 0,
           mit.W + this.grass_bg_vx,
           mit.H
         );
@@ -325,12 +295,12 @@
         ctx.drawImage(
           this.grass_img,
 
-          0, 0,
+          0, this.grass_img.height - mit.H,
           grass_bg_vx_abs,
           mit.H,
 
           mit.W + this.grass_bg_vx,
-          mit.H - this.grass_img.height,
+          0,
           grass_bg_vx_abs,
           mit.H
         );
