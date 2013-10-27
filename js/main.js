@@ -41,10 +41,14 @@ mit.main = function() {
   var canvas = document.createElement("canvas");
   document.body.appendChild(canvas);
 
-  var ctx = canvas.getContext('2d');
+  var bgcanvas = document.createElement("canvas");
+  document.body.appendChild(bgcanvas);
 
-  var W = canvas.width = 1000;
-  var H = canvas.height = 500;
+  var ctx = canvas.getContext('2d');
+  var bgctx = bgcanvas.getContext('2d');
+
+  var W = canvas.width = bgcanvas.width = 1000;
+  var H = canvas.height = bgcanvas.height = 500;
 
   var music = mit.audio.loadMusic;
   var flap = mit.audio.loadFlap;
@@ -290,9 +294,8 @@ mit.main = function() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
-
+    mit.Backgrounds.draw(bgctx);
     ctx.clearRect(0, 0, W, H);
-    mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
