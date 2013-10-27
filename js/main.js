@@ -40,10 +40,7 @@ mit.main = function() {
 
   var canvas = CocoonJS.App.createScreenCanvas();
 
-  var bg_canvas = CocoonJS.App.createScreenCanvas();
-
   var ctx = canvas.getContext('2d');
-  var bg_ctx = bg_canvas.getContext('2d');
 
   var W = canvas.width = window.innerWidth;
   var H = canvas.height = 640;
@@ -293,9 +290,9 @@ mit.main = function() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
-    mit.Backgrounds.draw(bg_ctx);
 
     ctx.clearRect(0, 0, W, H);
+    mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
