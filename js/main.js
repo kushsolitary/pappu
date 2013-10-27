@@ -115,7 +115,7 @@ mit.main = function() {
     mit.PakiaUtils.cur_pakia = false;
   };
 
-  document.addEventListener('mousedown', function() {
+  document.addEventListener('touchstart', function() {
     if (!mit.game_started)    
       startGame();
 
