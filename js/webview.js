@@ -1,15 +1,10 @@
-CocoonJS
-  .App
-  .onLoadInTheWebViewSucceed
-  .addEventListener(function() {
+CocoonJS.App.onLoadInTheWebViewSucceed.addEventListener(function(pageURL) {
+    // Show the webview. By default, the webview is hidden.
+    CocoonJS.App.showTheWebView();
+});
 
-    CocoonJS
-      .App
-      .forward("CocoonJS.App.show(0, 0, " + window.innerWidth + "," + window.innerHeight + ");");
+CocoonJS.App.onLoadInTheWebViewFailed.addEventListener(function(pageURL) {
+    console.error("Could not load the HTML file in the webview");
+});
 
-    return;
-  });
-
-CocoonJS
-  .App
-  .loadInTheWebView('../game_screen.html');
+CocoonJS.App.loadInTheWebView("game_screen");
