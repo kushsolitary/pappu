@@ -169,8 +169,8 @@
 
         // Draw Escapes
         ctx.save();
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'white';
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = 'green';
         ctx.fillRect(
           branch.escape_x,
           branch.escape_y,

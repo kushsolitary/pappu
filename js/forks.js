@@ -169,7 +169,7 @@
             fork.dig_y = mit.H - dig_img.height;
             // console.log(this.dig_img.width);
 
-            fork.y = 200 + utils.randomNumber(0,100);
+            fork.y = 300 + utils.randomNumber(0,100);
             fork.y += fork_head_img.height;
           }
 
