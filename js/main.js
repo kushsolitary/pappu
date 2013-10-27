@@ -38,7 +38,7 @@ mit.main = function() {
 
   // Main Canvas
 
-  var canvas = document.createElement("canvas");
+  var canvas = CocoonJS.App.createScreenCanvas();
   document.body.appendChild(canvas);
 
   var ctx = canvas.getContext('2d');
