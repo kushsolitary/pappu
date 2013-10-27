@@ -74,7 +74,7 @@ mit.main = function() {
 
 
   // Start Button
-  var startGame = function() {
+  mit.startGame = function() {
     // Play the awesome music! Really awesome
     music.play();
 
