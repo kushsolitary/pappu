@@ -1,5 +1,6 @@
-ui.start_game.on('touchdown', function() {
-  CocoonJS.App.forward("mit.main.startGame();");
+ui.start_game.on('click', function() {
+  // CocoonJS.App.forward("mit.main.startGame();");
+  CocoonJS.App.forward("console.log('Start button touched');");
 
   return false;
 });
