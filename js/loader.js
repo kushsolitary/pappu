@@ -63,10 +63,6 @@
   var counter = 0,
       percent = 0;
 
-  var loading = document.getElementById("bar");
-  var loader = document.getElementById("loading");
-  var loadText = document.getElementById("loadText");
-
   if(!($.browser.webkit && !$.browser.chrome)) {
     for(var i = 0; i < mit.audio.length; i++) {
       var file = mit.audio[i];
@@ -75,11 +71,8 @@
         file.addEventListener("loadeddata", function() {
           counter++;
           percent = Math.floor((counter/size*100));
-          loading.style.width = percent + "%";
-          loadText.innerHTML = "Loading... " + percent + "%";
 
           if(percent >= 100) {
-            $("#loading").fadeOut();
             mit.main();
           }
         });
@@ -88,11 +81,8 @@
       else {
         counter++;
         percent = Math.floor((counter/size*100));
-        loading.style.width = percent + "%";
-        loadText.innerHTML = "Loading... " + percent + "%";
 
         if(percent >= 100) {
-          $("#loading").fadeOut();
           mit.main();
         }
 
@@ -108,11 +98,8 @@
       counter++;
 
       percent = Math.floor(((counter)/size*100));
-      loading.style.width = percent + "%";
-      loadText.innerHTML = "Loading... " + percent + "%";
       
       if(percent >= 100) {
-        $("#loading").fadeOut();
         mit.main();
       }
 
