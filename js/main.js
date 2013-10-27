@@ -52,31 +52,8 @@ mit.main = function() {
   var canvas = document.querySelector('#game_main');
   var ctx = canvas.getContext('2d');
 
-  var W = canvas.width = ui.body.width();
-  var H = canvas.height = ui.body.height();
-
-  // Width x Height capped to 1000 x 500
-  if (canvas.width > 1000) {
-    W = canvas.width = 1000;
-  }
-  if (canvas.height > 500) {
-    H = canvas.height = 500;
-  }
-
-  // Resizing Width/Height
-  if (canvas.height < 500) {
-    canvas.width = canvas.height * 1000/500;
-  }
-  if (canvas.width < 1000) {
-    canvas.height = canvas.width * 500/1000;
-  }
-
-  // BG Canvas
-  var bg_canvas = document.querySelector('#game_bg');
-  var bg_ctx = bg_canvas.getContext('2d');
-
-  bg_canvas.width = canvas.width;
-  bg_canvas.height = canvas.height;
+  var W = canvas.width = 1000;
+  var H = canvas.height = 500;
 
   var music = document.getElementById("start");
   music.volume = 0.2;
@@ -350,9 +327,9 @@ mit.main = function() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
-    mit.Backgrounds.draw(bg_ctx);
 
     ctx.clearRect(0, 0, W, H);
+    mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
