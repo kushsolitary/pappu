@@ -30,17 +30,6 @@ mit.main = function() {
   };
 
   var ui = mit.ui = {
-    body: $('body'),
-    score_board: $('#score_board'),
-    last_score: $('#last_score'),
-    high_score: $('#high_score'),
-    start_screen: $('#start_screen'),
-    start_game: $('#start_game'),
-    tweet: $('#tweet'),
-    fb: $('#fb'),
-    fps_count: $('#fps_count'),
-    invincible_timer: $('#invincible_timer'),
-    invincible_loader: $('#invincible_loader')
   };
 
   /*
@@ -49,7 +38,7 @@ mit.main = function() {
 
   // Main Canvas
 
-  var canvas = document.querySelector('#game_main');
+  var canvas = document.getElementById('game_main');
   var ctx = canvas.getContext('2d');
 
   var W = canvas.width = 1000;
