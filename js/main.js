@@ -131,8 +131,6 @@ mit.main = function() {
   try {
 
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
-    if (mit.highScore)
-      ui.high_score.text("High Score: "+ mit.highScore);
 
   } catch (e) {}
 
@@ -246,7 +244,6 @@ mit.main = function() {
       mit.highScore = parseInt(mit.score);
       localStorage.setItem("highScore", JSON.stringify(parseInt(mit.score)));
 
-      ui.high_score.text("High Score: "+ mit.highScore);
     }
 
     // Show last_score
