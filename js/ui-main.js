@@ -1,5 +1,5 @@
 ui.start_game.on('touchdown', function() {
-  CocoonJS.App.forward("startGame();");
+  CocoonJS.App.forward("mit.main.startGame();");
 
   return false;
 });
