@@ -73,9 +73,6 @@ mit.main = function() {
   mit.game_over = 0;
   mit.start_btn_clicked = 0;
 
-  ui.start_screen.css('width', canvas.width + 'px');
-  ui.start_screen.css('height', canvas.height + 'px');
-
   // Start Button
   var startGame = function() {
     // Play the awesome music! Really awesome
@@ -83,7 +80,6 @@ mit.main = function() {
     flap.pause();
 
     // Hide the Start Screen
-    ui.start_screen.fadeOut();
 
     // Start btn has been clicked
     // Game hasnt started. Game will
@@ -119,11 +115,6 @@ mit.main = function() {
     mit.PakiaUtils.cur_pakia = false;
   };
 
-  ui.start_game.on('mousedown', function() {
-    startGame();
-
-    return false;
-  });
 
 
 
@@ -137,9 +128,6 @@ mit.main = function() {
       ui.high_score.text("High Score: "+ mit.highScore);
 
   } catch (e) {}
-
-  ui.score_board.css('width', canvas.width + 'px');
-  ui.score_board.css('height', canvas.height + 'px');
 
 
   // Set Canvas Width/Height in Config
@@ -245,7 +233,6 @@ mit.main = function() {
     Performing some game over tasks
   */
   mit.gameOver = function() {
-    ui.start_screen.fadeIn();
 
     // High Score
     if (mit.score > mit.highScore) {
@@ -289,9 +276,7 @@ mit.main = function() {
   };
 
   mit.last_time = new Date();
-  setInterval(function() {
-    mit.ui.fps_count.html(mit.fps.toFixed(0) + ' FPS');
-  }, 1000);
+
 
 
   // Initializations
@@ -372,7 +357,6 @@ mit.main = function() {
       // Update score
       if (!mit.game_over) {
         mit.score = mit.score += 0.1;
-        ui.score_board.text(parseInt(mit.score));
       }
 
       // Acceleration + Gravity
