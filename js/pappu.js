@@ -112,8 +112,9 @@
 
         if (timer_progress > 100)
           this.undoInvincible();
-        else
+        else {
           //mit.ui.invincible_loader.css('width', timer_progress + '%');
+        }
 
         // console.log(timer_progress)
       }
