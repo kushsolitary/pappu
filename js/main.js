@@ -29,9 +29,6 @@ mit.main = function() {
 
   };
 
-  var ui = mit.ui = {
-  };
-
   /*
   Basic Canvas Inits
   */
