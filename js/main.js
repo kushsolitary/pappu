@@ -35,35 +35,22 @@ mit.main = function() {
 
   // Main Canvas
 
+  var bgcanvas = document.createElement('canvas');
+  document.body.appendChild(bgcanvas);
   var canvas = CocoonJS.App.createScreenCanvas();
 
   var ctx = canvas.getContext('2d');
+  var bgctx = bgcanvas.getContext('2d');
 
   var W = canvas.width = window.innerWidth;
   var H = canvas.height = 640;
 
-  var music = mit.audio.loadMusic;
+  mit.music = mit.audio.loadMusic;
+  mit.music.loop = true;
   var flap = mit.audio.loadFlap;
-  music.volume = 0.2;
+  mit.music.volume = 0.2;
   
-  var isMute = false;
-
-  // Mute the game if button is clicked
-  $("#mute").click(function() {
-    if(isMute == false) {
-      $(this).css("backgroundPosition", "0px -40px");
-      music.volume = 0;
-      isMute = true;
-    }
-
-    else {
-      $(this).css("backgroundPosition", "0px 0px");
-      music.volume = 0.2;
-      isMute = false;
-    }
-
-    return false;
-  });
+  mit.isMute = false;
 
   /*
     Game Start Screen and Lolz
@@ -76,9 +63,15 @@ mit.main = function() {
   // Start Button
   mit.startGame = function() {
     // Play the awesome music! Really awesome
-    music.play();
+    mit.music.play();
 
     flap.pause();
+
+    /*
+    mit.music.addEventListener('ended', function() {
+      mit.music.play();
+    }, false);
+    */
 
     // Hide the Start Screen
 
@@ -132,6 +125,8 @@ mit.main = function() {
   try {
 
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
+    if (mit.highScore)
+      CocoonJS.App.forward('ui.high_score.text("High Score: "+' +  mit.highScore + ');');
 
   } catch (e) {}
 
@@ -141,7 +136,7 @@ mit.main = function() {
   mit.config.canvas_height = mit.H = H;
 
   // Gravity
-  mit.gravity = 0.7;
+  mit.gravity = 0.8;
 
   // Velocity x,y
   mit.vx = 0;
@@ -152,7 +147,7 @@ mit.main = function() {
   // 
   // You can console.log velocities in drawing methods
   // and from there decide what to set as the cap.
-  mit.v_cap = 6.5;
+  mit.v_cap = 10;
 
   // Accelaration x,y
   mit.ax = 0;
@@ -182,15 +177,6 @@ mit.main = function() {
     mit.flying_up = 0;
   };
 
-  // Game play on mouse clicks too!
-  window.addEventListener('mousedown', function(e) {
-    mit.ascend();
-  }, false);
-
-  window.addEventListener('mouseup', function(e) {
-    mit.descend();
-  }, false);
-
 
   // Game play on touch too!
   window.addEventListener('touchstart', function(e) {
@@ -202,41 +188,6 @@ mit.main = function() {
   }, false);
 
 
-  music.addEventListener('ended', function() {
-    music.play();
-  }, false);
-
-  // ... and keyzz...
-  window.addEventListener('keydown', function(e) {
-
-    // Up
-    if (e.keyCode === 38) {
-      mit.ascend();
-
-      e.preventDefault();
-    }
-    // Down
-    if (e.keyCode === 40) {
-      e.preventDefault();
-    }
-
-    // Space || Enter
-    if (e.keyCode === 32 || e.keyCode === 13) {
-      startGame();
-      
-      e.preventDefault();
-    }
-
-  }, false);
-
-  window.addEventListener('keyup', function(e) {
-
-    if (e.keyCode === 38) {
-      mit.descend();
-
-      e.preventDefault();
-    }
-  }, false);
 
 
   /*
@@ -244,10 +195,14 @@ mit.main = function() {
   */
   mit.gameOver = function() {
 
+    CocoonJS.App.forward("showMenu();");
+
     // High Score
     if (mit.score > mit.highScore) {
       mit.highScore = parseInt(mit.score);
       localStorage.setItem("highScore", JSON.stringify(parseInt(mit.score)));
+
+      CocoonJS.App.forward('ui.high_score.text("High Score: "+ ' + mit.highScore + ');');
 
     }
 
@@ -269,6 +224,8 @@ mit.main = function() {
     // Nuke all clones
     mit.Pappu.clones.length = 0;
 
+    CocoonJS.App.forward("changeURL();");
+
   };
 
   mit.last_time = new Date();
@@ -283,14 +240,13 @@ mit.main = function() {
   mit.Pappu.init();
   mit.PakiaUtils.init();
 
-
   (function renderGame() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
+    mit.Backgrounds.draw(bgctx);
 
     ctx.clearRect(0, 0, W, H);
-    mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
@@ -354,6 +310,8 @@ mit.main = function() {
       if (!mit.game_over) {
         mit.score = mit.score += 0.1;
       }
+
+      CocoonJS.App.forward("ui.score_board.text(" + parseInt(mit.score) + ");");
 
       // Acceleration + Gravity
       // mit.ay = mit.ay + mit.gravity;

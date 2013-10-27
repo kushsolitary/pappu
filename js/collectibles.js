@@ -276,7 +276,7 @@
             mit.Pappu.invincibility_time = 5000;
 
             // Show timer
-            //mit.ui.invincible_timer.show();
+            CocoonJS.App.forward("ui.invincible_timer.show();");
 
             break;
         }

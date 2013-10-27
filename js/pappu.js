@@ -55,6 +55,7 @@
       this.invincibility_start = 0;
       this.invincible_timer = 0;
 
+      CocoonJS.App.forward("ui.invincible_timer.hide();");
     },
 
     draw: function(ctx) {
@@ -113,7 +114,7 @@
         if (timer_progress > 100)
           this.undoInvincible();
         else {
-          //mit.ui.invincible_loader.css('width', timer_progress + '%');
+          CocoonJS.App.forward("ui.invincible_loader.css('width', " + (100 - timer_progress) + " + '%')");
         }
 
         // console.log(timer_progress)
