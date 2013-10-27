@@ -115,6 +115,12 @@ mit.main = function() {
     mit.PakiaUtils.cur_pakia = false;
   };
 
+  document.addEventListener('mousedown', function() {
+    if (!mit.game_started)    
+      startGame();
+
+    return false;
+  }, false);
 
 
 
@@ -243,12 +249,6 @@ mit.main = function() {
     }
 
     // Show last_score
-    ui.last_score.text("Last Score: " + parseInt(mit.score));
-
-
-    ui.start_game.html('re-start');
-    ui.tweet.html('tweet score');
-    ui.fb.html('post on fb');
 
     mit.descend();
 
@@ -265,13 +265,6 @@ mit.main = function() {
 
     // Nuke all clones
     mit.Pappu.clones.length = 0;
-
-    // Share
-    var tweet = document.getElementById("tweet");
-    tweet.href='http://twitter.com/share?url=http://khele.in/pappu-pakia/&text=I just scored ' +Math.floor(mit.score)+ ' points in Pappu Pakia!&count=horiztonal&via=_rishabhp&related=solitarydesigns';
-  
-    var facebook = document.getElementById("fb");
-    facebook.href='http://facebook.com/sharer.php?s=100&p[url]=http://khele.in/pappu-pakia/&p[title]=I just scored ' +Math.floor(mit.score)+ ' points in the Pappu Pakia!';
 
   };
 

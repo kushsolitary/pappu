@@ -55,7 +55,6 @@
       this.invincibility_start = 0;
       this.invincible_timer = 0;
 
-      mit.ui.invincible_timer.hide();
     },
 
     draw: function(ctx) {
