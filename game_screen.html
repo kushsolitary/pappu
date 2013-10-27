@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Pappu Pakia | Khelein</title>
+
+  <link rel="stylesheet" href="css/main.css">
+
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Start Screen -->
+    <div id="start_screen">
+      <h1 id="title">pappu pakia</h1>
+      <h3 id="credits">
+        by
+        <a href="http://twitter.com/SolitaryDesigns">Kushagra</a>
+        and
+        <a href="http://twitter.com/_rishabhp">Rishabh</a>
+      </h3>
+      <h3 id="last_score"></h3>
+      <h3 id="high_score"></h3>
+
+      <div class="controls"></div>
+
+      <div class="options">
+        <ul>
+          <li><a href="javascript:void(0);" id="start_game">start</a></li>
+          <li><a href="javascript:void(0);" target="_blank" id="tweet">tweet</a></li>
+          <li><a href="javascript:void(0);" target="_blank" id="fb">fb like</a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- /Start Screen -->
+
+    <div id="score_board">0</div>
+
+    <div id="invincible_timer">
+      <div id="invincible_loader"></div>
+    </div>
+
+    <a href="javascript:void(0)" id="mute"></a>
+    
+    <!-- Loading Screen -->
+    <div id="loading">
+      <p id="loadText">Loading...</p>
+      <div id="barCont">
+        <div id="bar"></div>
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+    // Send it to Main
+    CocoonJS.App.forward("console.log('Hello from CocoonJS WebView');");
+  </script>
+
+</body>
+</html>
