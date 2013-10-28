@@ -325,7 +325,7 @@
       pakias.forEach(function(pakia, pakia_index) {
         var pakia_bound = pakia.getBounds();
 
-        var pakia_dead = 0;
+        var pakia_dead = false;
 
         self.clones.forEach(function(clone) {
 
@@ -335,9 +335,8 @@
           var clone_bound = clone.getBounds();
 
           if (utils.intersect(pakia_bound, clone_bound)) {
-            mit.PakiaUtils.cur_pakia = false;
-
-            pakia_dead = 1;
+            // mit.PakiaUtils.cur_pakia = false;
+            pakia_dead = mit.PakiaUtils.died(mit.PakiaUtils.cur_pakia);
           }
 
           return;

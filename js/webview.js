@@ -1,5 +1,4 @@
 CocoonJS.App.onLoadInTheWebViewSucceed.addEventListener(function(pageURL) {
-  //CocoonJS.App.showMessageBox("Hi", "Hello World!", "Boom", "Die");
   CocoonJS.App.showTheWebView();
 });
 

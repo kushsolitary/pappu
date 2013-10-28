@@ -206,8 +206,6 @@ mit.main = function() {
 
     }
 
-    // Show last_score
-
     mit.descend();
 
     // Stop background
@@ -244,9 +242,9 @@ mit.main = function() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
-    mit.Backgrounds.draw(bgctx);
 
     ctx.clearRect(0, 0, W, H);
+    mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra

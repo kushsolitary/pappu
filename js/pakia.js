@@ -14,12 +14,24 @@
     this.y;
     this.w;
     this.h;
+    this.rotate_angle;
+    this.isDead;
 
     this.draw = function(ctx) {
-      ctx.drawImage(mit.PakiaUtils.pakia_img[this.type], this.x, this.y);
+      ctx.save();
+
+      ctx.translate(this.x, this.y);
+      ctx.translate(this.w/2, this.h/2);
+      ctx.rotate(utils.toRadian(this.rotate_angle));
+
+      ctx.drawImage(mit.PakiaUtils.pakia_img[this.type], 0, 0, this.w, this.h, -this.w/2, -this.h/2, this.w, this.h);
+      ctx.restore();
     };
 
     this.generateRandomPos = function() {
+      this.rotate_angle = 0;
+      this.isDead = false;
+
       this.x = mit.config.canvas_width/2 + 200;
       this.y = mit.config.canvas_height;
     };
@@ -115,7 +127,15 @@
       //console.log(this.pakias);
     },
 
+    died: function(pak) {
+      this.cur_pakia.isDead = true;
+
+      if(this.cur_pakia.y > mit.H)
+        return true;
+    },
+
     reflow: function(ctx) {
+
 
       if (!this.cur_pakia) {
         // cur_pakia is one thats currently visible
@@ -130,9 +150,16 @@
 
       this.cur_pakia.vy += this.cur_pakia.gravity;
 
-      this.cur_pakia.x += this.cur_pakia.vx;
-      this.cur_pakia.y += this.cur_pakia.vy;
-      // console.log(this.cur_pakia.x)
+      if(this.cur_pakia.isDead == false) {
+        this.cur_pakia.x += this.cur_pakia.vx;
+        this.cur_pakia.y += this.cur_pakia.vy;
+      }
+      else {
+        this.cur_pakia.rotate_angle += 10;
+        this.cur_pakia.x += -1;
+        this.cur_pakia.y += this.cur_pakia.vy;
+      }
+      // console.log(this.cur_pakia.x)  
 
       // Reset positions
       if (
@@ -175,7 +202,7 @@
     },
 
     checkCollision: function() {
-      if (!this.cur_pakia)
+      if (!this.cur_pakia || this.cur_pakia.isDead)
         return;
 
       var pappu_bounds = mit.Pappu.getBounds();

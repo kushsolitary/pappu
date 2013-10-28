@@ -35,26 +35,26 @@ var tweet = document.getElementById("tweet");
 var facebook = document.getElementById("fb");
 
 tweet.onclick = function() {
-  CocoonJS.App.openURL('http://twitter.com/share?text=I+am+playing+Pappu+Pakia,+a+cute+HTML5+game+for+iPhone+@kushsolitary!');
+  CocoonJS.App.WebDialog.show('http://twitter.com/share?text=I+am+playing+Pappu+Pakia,+a+cute+HTML5+game+for+iPhone+@kushsolitary!', function() {});
   // console.log("Yo");
   return false;
 }
 
 facebook.onclick = function() {
-  CocoonJS.App.openURL('http://facebook.com/sharer.php?s=100&p[title]=I+am+playing+Pappu+Pakia,+a+cute+HTML5+game+for+iPhone!');
+  CocoonJS.App.WebDialog.show('http://facebook.com/sharer.php?s=100&p[title]=I+am+playing+Pappu+Pakia,+a+cute+HTML5+game+for+iPhone!', function() {});
   // console.log("Yo");
   return false;
 }
 
 function changeURL() {
   tweet.onclick = function() {
-    CocoonJS.App.openURL('http://twitter.com/share?text=I+just+scored+' +CocoonJS.App.forward("Math.floor(mit.score)")+ '+points+in+Pappu+Pakia!');
+    CocoonJS.App.WebDialog.show('http://twitter.com/share?text=I+just+scored+' +CocoonJS.App.forward("Math.floor(mit.score)")+ '+points+in+Pappu+Pakia!', function() {});
     // console.log("Yo");
     return false;
   }
 
   facebook.onclick = function() {
-    CocoonJS.App.openURL('http://facebook.com/sharer.php?s=100&p[title]=I+just+scored+' +CocoonJS.App.forward("Math.floor(mit.score)")+ '+points+in+Pappu+Pakia!');
+    CocoonJS.App.WebDialog.show('http://facebook.com/sharer.php?s=100&p[title]=I+just+scored+' +CocoonJS.App.forward("Math.floor(mit.score)")+ '+points+in+Pappu+Pakia!', function() {});
     // console.log("Yo");
     return false;
   }
