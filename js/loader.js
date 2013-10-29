@@ -12,12 +12,12 @@
   // Preloading image stuff
 
   mit.audio = {
-    loadMusic: 'sound/pappu-pakia2.3.mp3', 
-    loadAngry: 'sound/jump1.mp3', 
-    loadSad: 'sound/jump2.mp3', 
-    loadHappy: 'sound/jump3.mp3',
-    loadFlap: 'sound/flap.mp3', 
-    loadTing: 'sound/ting.mp3',
+    loadMusic: 'sound/pappu-pakia2.3.ogg', 
+    loadAngry: 'sound/jump1.ogg', 
+    loadSad: 'sound/jump2.ogg', 
+    loadHappy: 'sound/jump3.ogg',
+    loadFlap: 'sound/flap.ogg', 
+    loadTing: 'sound/ting.ogg',
   };
 
     for (var name in mit.audio) {

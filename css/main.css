@@ -50,6 +50,11 @@ html, body {
   width: 100%; height: 100%;
 }
 
+html {
+	font-size: 100%;
+}
+
+/*
 #mute {
 	width: 60px;
 	height: 60px;
@@ -64,10 +69,11 @@ html, body {
 	background-position: 0 0;
 }
 
+*/
+
 .container {
 	position: relative;
-	width: auto;
-	max-width: 100%;
+	width: 100%;
 	height: 100%;
 }
 
@@ -79,7 +85,7 @@ html, body {
 	padding: 10px;
 	height: 10%;
 	text-align: left;
-	font-size: 40px;
+	font-size: 1.7rem;
 	font-weight: normal;
 	font-family: 'Happy Sans', cursive;
 
@@ -90,13 +96,13 @@ html, body {
 }
 
 #invincible_timer {
-	width: 300px;
-	height: 30px;
+	width: 26.4%;
+	height: 4.7%;
 	position: absolute;
-	top: 30px;
+	top: 4.7%;
 	left: 50%;
 	border: 1px solid #fff;
-	margin-left: -150px;
+	margin-left: -13.2%;
 	display: none;
 	opacity: 0.8;
 }
@@ -123,22 +129,21 @@ html, body {
 }
 
 #title {
-	font-size: 80px;
-	line-height: 120px;
+	font-size: 2.8rem;
+	line-height: 4rem;
 	font-weight: normal;
 	color: #945430;
 	text-align: center;
-	margin: 0;
 	padding: 0;
 	font-family: 'Happy Sans', cursive;
 }
 
 #credits, #high_score, #last_score {
-	font: 42px 'Happy Sans', cursive;
+	font: 1.4rem 'Happy Sans', cursive;
 	color: white;
 	padding: 0;
 	text-align: center;
-	margin: -10px 0 15px;
+	margin: 0 0 1%;
 }
 
 #credits a {
@@ -147,71 +152,75 @@ html, body {
 }
 
 .options {
-	height: 400px;
+	height: 62.5%;
 	background-image: url(../img/stand.png);
 	background-position: bottom center;
-	width: 225px;
+	width: 19.9%;
 	background-repeat: no-repeat;
 	position: absolute;
 	bottom: 0;
-	right: 50px;
+	right: 4.4%;
+	background-size: contain;
 }
 
-.options:before {
-	content: '';
+/*
+.options .dig {
 	background-image: url(../img/dig.png);
 	background-repeat: no-repeat;
 	position: absolute;
-	width: 47px;
-	height: 49px;
+	width: 50%;
+	height: 10%;
 	bottom: -1px;
-	left: 50%;
-	margin-left: -27px;
+	right: 4.4%;
 	z-index: -1;
+	background-size: contain;
 }
+*/
 
-.options ul {
-	margin: 0;
-	padding: 50px 0 0;
-	list-style: none;
-}
-
-.options ul li {
-	display: block;
-	font: 40px 'Happy Sans', cursive;
+.plank {
+	font: 1.2rem 'Happy Sans', cursive;
 	text-align: center;
-	margin: 0 0 20px;
-}
-
-.options ul li a {
+	display: block;
+	background-size: contain !important;
+	position: absolute;
+	width: 18.4%;
+	right: 50%;	
 	color: #FFEEAA;
 	text-decoration: none;
 }
 
-.options ul li:first-child {
+.plank:nth-of-type(1) {
 	background: url(../img/plank_top.png) no-repeat top center;
-	height: 70px;
-	line-height: 70px;
+	height: 11%;
+	margin-right: -44.5%;
+	bottom: 42%;
+	line-height: 150%;
 }
 
-.options ul li:nth-child(2) {
+.plank:nth-of-type(2) {
 	background: url(../img/plank_mid.png) no-repeat top center;
-	height: 63px;
-	line-height: 63px;
+	height: 10%;
+	margin-right: -44.5%;
+	bottom: 30%;
+	line-height: 150%;
 }
 
-.options ul li:last-child {
+.plank:nth-of-type(3) {
 	background: url(../img/plank_bot.png) no-repeat top center;
-	height: 75px;
-	line-height: 75px;
+	height: 12%;
+	margin-right: -44.5%;
+	bottom: 17%;
+	line-height: 190%;
 }
 
+/*
 .controls {
-	width: 200px;
-	height: 48px;
+	width: 100px;
+	height: 24px;
 	background: url(../img/controls.png) no-repeat top center;
-	margin: 10px auto;
+	margin: 5px auto;
 	position: absolute;
 	top: 60%; left: 50%;
-	margin-top: -24px; margin-left: -100px;
+	margin-top: -12px; margin-left: -50px;
 }
+*/

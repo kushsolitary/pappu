@@ -41,7 +41,7 @@
       // this.cloud_img.src = 'img/clouds.png';
       this.cloud_img = mit.image.clouds;
 
-      this.cloud_img.width = 1000;
+      this.cloud_img.width = mit.W;
       this.cloud_img.height = 500;
 
 
@@ -50,7 +50,7 @@
       // this.backtree_img.src = 'img/back_trees.png';
       this.backtree_img = mit.image.backtrees;
 
-      this.backtree_img.width = 1000;
+      this.backtree_img.width = mit.W;
       this.backtree_img.height = 500;
 
 
@@ -59,7 +59,7 @@
       // this.fronttree_img.src = 'img/front_trees.png';
       this.fronttree_img = mit.image.fronttrees;
 
-      this.fronttree_img.width = 1000;
+      this.fronttree_img.width = mit.W;
       this.fronttree_img.height = 500;
 
 
@@ -68,7 +68,7 @@
       // this.ground_img.src = 'img/ground.png';
       this.ground_img = mit.image.ground;
 
-      this.ground_img.width = 1000;
+      this.ground_img.width = mit.W;
       this.ground_img.height = 500;
 
 
@@ -77,7 +77,7 @@
       // this.grass_img.src = 'img/grass.png';
       this.grass_img = mit.image.grass;
 
-      this.grass_img.width = 1000;
+      this.grass_img.width = mit.W;
       this.grass_img.height = 500;
 
 

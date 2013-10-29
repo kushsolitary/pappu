@@ -35,6 +35,9 @@ mit.main = function() {
 
   // Main Canvas
 
+  // Responsive fonts!
+  CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
+  
   var bgcanvas = document.createElement('canvas');
   document.body.appendChild(bgcanvas);
   var canvas = CocoonJS.App.createScreenCanvas();
@@ -42,7 +45,7 @@ mit.main = function() {
   var ctx = canvas.getContext('2d');
   var bgctx = bgcanvas.getContext('2d');
 
-  var W = canvas.width = window.innerWidth;
+  var W = canvas.width = 1136;
   var H = canvas.height = 640;
 
   mit.music = mit.audio.loadMusic;
