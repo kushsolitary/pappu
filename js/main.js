@@ -64,8 +64,9 @@ mit.main = function() {
 
 
   // Start Button
-  mit.startGame = function() {
+  mit.startGame = function(level) {
     // Play the awesome music! Really awesome
+    mit.level = level;
     mit.music.play();
 
     flap.pause();
@@ -84,7 +85,7 @@ mit.main = function() {
     mit.start_btn_clicked = 1;
     mit.game_started = 0;
 
-    mit.Backgrounds.common_bg_speed = 1;
+    mit.Backgrounds.common_bg_speed = (mit.level > 0) ? ((mit.level == 1) ? 1.5 : 2) : 1;
     mit.Backgrounds.resetAllSpeed();
 
     // Reset all accelerations and make
@@ -150,7 +151,7 @@ mit.main = function() {
   // 
   // You can console.log velocities in drawing methods
   // and from there decide what to set as the cap.
-  mit.v_cap = 10;
+  mit.v_cap = (mit.level > 0) ? ((mit.level == 1) ? 12 : 14) : 10;
 
   // Accelaration x,y
   mit.ax = 0;

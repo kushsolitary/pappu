@@ -13,6 +13,12 @@
   margin: 0; padding: 0;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+
+
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
 }
 
 /* Loading 
@@ -88,11 +94,6 @@ html {
 	font-size: 1.7rem;
 	font-weight: normal;
 	font-family: 'Happy Sans', cursive;
-
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
 }
 
 #invincible_timer {
@@ -121,11 +122,26 @@ html {
 	height: 100%;
 	z-index: 1;
 	width: 100%;
+}
 
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
+#level_select {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	display: none;
+}
+
+#level_select a {
+	font-size: 2rem;
+	color: #945430;
+	text-decoration: none;
+	font-family: 'Happy Sans', cursive;
+	line-height: 15rem;
+	display: inline-block;
+	margin: 0 1rem;
 }
 
 #title {

@@ -151,7 +151,7 @@
       this.cur_pakia.vy += this.cur_pakia.gravity;
 
       if(this.cur_pakia.isDead == false) {
-        this.cur_pakia.x += this.cur_pakia.vx;
+        this.cur_pakia.x += this.cur_pakia.vx * mit.Backgrounds.common_bg_speed;
         this.cur_pakia.y += this.cur_pakia.vy;
       }
       else {

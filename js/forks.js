@@ -203,7 +203,7 @@
       // Loop over forks and draw each of them
       forks.forEach(function(fork, index) {
 
-        fork.x -= mit.Backgrounds.ground_bg_move_speed;
+        fork.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
 
         if (fork.x + fork.w < 0) {
           ++dead_forks;
