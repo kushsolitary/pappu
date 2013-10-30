@@ -372,35 +372,20 @@
     // Backgrounds have been made for 1000x500 dimensions
     draw: function(ctx) {
 
-      if (mit.start_btn_clicked) {
-        if (!this.fps || this.fps === 5000)
-          this.fps = mit.fps;
-      }
-      else {
-        this.fps = 5000;
-      }
+      // Draw Linear Gradient for real/pure BG (sky/water)
+      ctx.save();
+      ctx.fillStyle = this.sky_gradient;
+      ctx.fillRect(0, 0, mit.W, mit.H);
+      ctx.restore();
 
+      // Clouds
+      this.drawClouds(ctx);
+      
+      // Back Small Trees
+      this.drawBackTrees(ctx);
 
-      if (this.fps > 56) {
-
-        // Draw Linear Gradient for real/pure BG (sky/water)
-        ctx.save();
-        ctx.fillStyle = this.sky_gradient;
-        ctx.fillRect(0, 0, mit.W, mit.H);
-        ctx.restore();
-
-        // Clouds
-        this.drawClouds(ctx);
-        
-        // Back Small Trees
-        this.drawBackTrees(ctx);
-
-        // Front Big Trees
-        this.drawFrontTrees(ctx);
-      }
-      else {
-        this.drawCombinedBG(ctx);
-      }
+      // Front Big Trees
+      this.drawFrontTrees(ctx);
 
       // Drawing the initial wood log on which
       // Pappu gonna sit and bask in the cool and cozy
