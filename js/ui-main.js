@@ -8,8 +8,11 @@ ui.start_game.on('click', function() {
 });
 
 $("#level_select a.levels").click(function() {
-  var ind = $(this).index();
+  var ind = $(this).attr('data-d');
+
+  // alert(ind);
   CocoonJS.App.forward("mit.startGame(" + ind + ");");
+
   $("#score_board").fadeIn('fast');
   // alert(ind);
   $("#level_select").fadeOut('fast');
@@ -23,7 +26,18 @@ $("a#credit").click(function() {
 $("a#back").click(function() {
   $(this).parent('.main').fadeOut('fast');
   ui.start_screen.fadeIn('fast');
-})
+});
+
+$("a#main_menu").click(function() {
+  $("#gameover").fadeOut('fast');
+  $("#start_screen").fadeIn('fast');
+});
+
+$("a#restart").click(function() {
+  $("#gameover").fadeOut('fast');
+  $("#score_board").fadeIn('fast');
+  CocoonJS.App.forward("mit.startGame(mit.level);");
+});
 
 function showMenu() {
   $("#score_board").fadeOut('fast');
@@ -32,6 +46,14 @@ function showMenu() {
   ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));
 }
 
+function showGOScreen() {
+  $("#score_board").fadeOut('fast');
+  $("#gameover").fadeIn('fast');
+
+  ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));
+}
+
+/*
 // Mute the game if button is clicked
 $("#mute").click(function() {
   if(CocoonJS.App.forward("mit.isMute") == false) {
@@ -48,7 +70,7 @@ $("#mute").click(function() {
 
   return false;
 });
-
+*/
 
 // Positioning stuff
 var credit_height = $("#credits p").height();

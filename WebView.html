@@ -16,10 +16,8 @@
 
     <!-- Start Screen -->
     <div id="start_screen">
-      <h1 id="title">pappu pakia</h1>
-
-      <h3 id="last_score"></h3>
-      <h3 id="high_score"></h3>
+      <h1 class="title">Pappu Pakia</h1>
+      <h3 class="high_score"></h3>
 
       <div class="options"></div>
       <a class="plank" href="javascript:void(0);" id="start_game">Start</a>
@@ -31,11 +29,12 @@
 
     <!-- Level Select -->
     <div id="level_select" class="main">
+      <h1 class="title">Select speed</h1>
       <a href="javascript:void(0)" id="back">Back</a>
 
-      <a href="javascript:void(0)" class="levels">Easy</a>
-      <a href="javascript:void(0)" class="levels">Normal</a>
-      <a href="javascript:void(0)" class="levels">Expert</a>
+      <a href="javascript:void(0)" data-d="0" class="levels plank">Slow</a>
+      <a href="javascript:void(0)" data-d="1" class="levels plank">Normal</a>
+      <a href="javascript:void(0)" data-d="2" class="levels plank">Fast</a>
     </div>
     <!-- /Level Select -->
 
@@ -52,6 +51,18 @@
       </p>
     </div>
     <!-- /Credits -->
+
+    <!-- Game Over Screen -->
+    <div id="gameover" class="main">
+      <h1 class="title">You died!</h1>
+
+      <h3 id="last_score"></h3>
+      <h3 class="high_score"></h3>
+
+      <a class="plank" href="javascript:void(0);" id="restart">Restart</a>
+      <a class="plank" href="javascript:void(0);" id="main_menu">Main Menu</a>
+    </div>
+    <!-- /Game Over Screen -->
 
     <div id="score_board">0</div>
 
@@ -76,7 +87,7 @@
       body: $('body'),
       score_board: $('#score_board'),
       last_score: $('#last_score'),
-      high_score: $('#high_score'),
+      high_score: $('.high_score'),
       start_screen: $('#start_screen'),
       start_game: $('#start_game'),
       tweet: $('#tweet'),

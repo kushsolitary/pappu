@@ -132,12 +132,12 @@ mit.main = function() {
   if(localStorage.getItem("highScore")) {
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
     if (mit.highScore)
-      CocoonJS.App.forward('ui.high_score.text("High Score: "+' +  mit.highScore + ');');
+      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
     else
-      CocoonJS.App.forward('ui.high_score.text("High Score: 0");');
+      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
   }
   else
-    CocoonJS.App.forward('ui.high_score.text("High Score: 0");');
+      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
 
   // Set Canvas Width/Height in Config
   mit.config.canvas_width = mit.W = W;
@@ -208,7 +208,7 @@ mit.main = function() {
       mit.highScore = parseInt(mit.score);
       localStorage.setItem("highScore", JSON.stringify(parseInt(mit.score)));
 
-      CocoonJS.App.forward('ui.high_score.text("High Score: "+ ' + mit.highScore + ');');
+      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
 
     }
 
@@ -230,7 +230,7 @@ mit.main = function() {
 
     // CocoonJS.App.forward("changeURL();");
 
-    CocoonJS.App.forward("showMenu();");
+    CocoonJS.App.forward("showGOScreen();");
   };
 
   mit.last_time = new Date();

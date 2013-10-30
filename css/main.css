@@ -99,7 +99,7 @@ html {
 	left: none;
 	right: 2%;
 	padding: 10px;
-	color: #945430 !important;
+	color: #fff !important;
 	text-decoration: none;
 	text-align: right;
 }
@@ -132,7 +132,7 @@ html {
 	width: 100%;
 }
 
-#level_select, #credits, #help {
+#level_select, #credits, #help, #gameover {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -142,17 +142,7 @@ html {
 	display: none;
 }
 
-#level_select a.levels {
-	font-size: 2rem;
-	color: #945430;
-	text-decoration: none;
-	font-family: 'Happy Sans', cursive;
-	line-height: 15rem;
-	display: inline-block;
-	margin: 0 1rem;
-}
-
-#title {
+.title {
 	font-size: 2.8rem;
 	line-height: 4rem;
 	font-weight: normal;
@@ -162,7 +152,7 @@ html {
 	font-family: 'Happy Sans', cursive;
 }
 
-#credits, #high_score, #last_score {
+#credits, .high_score, #last_score {
 	font: 1.4rem 'Happy Sans', cursive;
 	color: white;
 	padding: 0;
@@ -222,7 +212,11 @@ html {
 	text-decoration: none;
 }
 
-.plank:nth-of-type(1) {
+#gameover .plank {
+	display: inline-block;
+}
+
+.plank:nth-of-type(1), #level_select .plank:nth-of-type(2) {
 	background: url(../img/plank_top.png) no-repeat top center;
 	height: 11%;
 	margin-right: -44.5%;
@@ -230,7 +224,17 @@ html {
 	line-height: 150%;
 }
 
-.plank:nth-of-type(2) {
+#gameover .plank:nth-of-type(1) {
+	bottom: 40%;
+	margin-right: 0%;
+}
+
+#level_select .plank:nth-of-type(2) {
+	bottom: 40%;
+	margin-right: 15%;
+}
+
+.plank:nth-of-type(2), #level_select .plank:nth-of-type(3)  {
 	background: url(../img/plank_mid.png) no-repeat top center;
 	height: 10%;
 	margin-right: -44.5%;
@@ -238,12 +242,27 @@ html {
 	line-height: 150%;
 }
 
-.plank:nth-of-type(3) {
+#gameover .plank:nth-of-type(2) {
+	bottom: 40%;
+	margin-right: -20%;
+}
+
+#level_select .plank:nth-of-type(3) {
+	bottom: 40%;
+	margin-right: -7%;
+}
+
+.plank:nth-of-type(3), #level_select .plank:nth-of-type(4) {
 	background: url(../img/plank_bot.png) no-repeat top center;
 	height: 12%;
 	margin-right: -44.5%;
 	bottom: 17%;
 	line-height: 190%;
+}
+
+#level_select .plank:nth-of-type(4) {
+	bottom: 40%;
+	margin-right: -30%;
 }
 
 /*
