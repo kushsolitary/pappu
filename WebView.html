@@ -96,18 +96,31 @@
   <script src="js/init.js"></script>
 
   <script>
+    // Cache UI elements
     var ui = mit.ui = {
       body: $('body'),
       score_board: $('#score_board'),
       last_score: $('#last_score'),
       high_score: $('.high_score'),
       start_screen: $('#start_screen'),
+      help: $('#help'),
+      level_select: $('#level_select'),
+      credits: $('#credits'),
+      gameover: $('#gameover'),
       start_game: $('#start_game'),
       tweet: $('#tweet'),
       fb: $('#fb'),
       fps_count: $('#fps_count'),
       invincible_timer: $('#invincible_timer'),
-      invincible_loader: $('#invincible_loader')
+      invincible_loader: $('#invincible_loader'),
+
+      // Buttons
+      levels: $("#level_select a.levels"),
+      credit: $("#credit"),
+      helps: $("a#helps"),
+      back: $("a#back"),
+      main_menu: $("a#main_menu"),
+      restart: $("a#restart")
     };
   </script>
 

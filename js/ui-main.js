@@ -2,58 +2,58 @@ ui.start_game.on('click', function() {
   // CocoonJS.App.forward("mit.startGame();");
   // CocoonJS.App.forward("console.log('Start button touched');");
 
-  $("#start_screen").fadeOut('fast');
-  $("#level_select").fadeIn('fast');
+  ui.start_screen.fadeOut('fast');
+  ui.level_select.fadeIn('fast');
   return false;
 });
 
-$("#level_select a.levels").click(function() {
+  ui.levels.click(function() {
   var ind = $(this).attr('data-d');
 
   // alert(ind);
   CocoonJS.App.forward("mit.startGame(" + ind + ");");
 
-  $("#score_board").fadeIn('fast');
+  ui.score_board.fadeIn('fast');
   // alert(ind);
-  $("#level_select").fadeOut('fast');
+  ui.level_select.fadeOut('fast');
 });
 
-$("a#credit").click(function() {
-  $("#start_screen").fadeOut('fast');
-  $("#credits").fadeIn('fast');
+ui.credit.click(function() {
+  ui.start_screen.fadeOut('fast');
+  ui.credits.fadeIn('fast');
 });
 
-$("a#helps").click(function() {
-  $("#start_screen").fadeOut('fast');
-  $("#help").fadeIn('fast');
+ui.helps.click(function() {
+  ui.start_screen.fadeOut('fast');
+  ui.help.fadeIn('fast');
 });
 
-$("a#back").click(function() {
+ui.back.click(function() {
   $(this).parent('.main').fadeOut('fast');
   ui.start_screen.fadeIn('fast');
 });
 
-$("a#main_menu").click(function() {
-  $("#gameover").fadeOut('fast');
-  $("#start_screen").fadeIn('fast');
+ui.main_menu.click(function() {
+  ui.gameover.fadeOut('fast');
+  ui.start_screen.fadeIn('fast');
 });
 
-$("a#restart").click(function() {
-  $("#gameover").fadeOut('fast');
-  $("#score_board").fadeIn('fast');
+ui.restart.click(function() {
+  ui.gameover.fadeOut('fast');
+  ui.score_board.fadeIn('fast');
   CocoonJS.App.forward("mit.startGame(mit.level);");
 });
 
 function showMenu() {
-  $("#score_board").fadeOut('fast');
+  ui.score_board.fadeOut('fast');
   ui.start_screen.fadeIn('fast');
 
   ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));
 }
 
 function showGOScreen() {
-  $("#score_board").fadeOut('fast');
-  $("#gameover").fadeIn('fast');
+  ui.score_board.fadeOut('fast');
+  ui.gameover.fadeIn('fast');
 
   ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));
 }
