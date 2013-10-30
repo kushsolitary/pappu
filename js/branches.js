@@ -120,15 +120,16 @@
           var branch = new mit.Branch();
 
           var pos = this.getRandomBranchPos();
-          branch.x = pos.x;
-          branch.y = 0;
 
           branch.w = this.branch_img.width;
           branch.h = this.branch_img.height;
+          
+          branch.x = pos.x;
+          branch.y = utils.randomNumber(0, - ((branch.h / 2) - 75));
 
           // Escape Positions
           branch.escape_x = branch.x;
-          branch.escape_y = branch.y + utils.randomNumber(0, branch.h-150);
+          branch.escape_y = branch.y + (branch.h / 2) - 75;
 
           // Escape Area's Width/Height
           branch.escape_w = this.branch_img.width;
@@ -168,6 +169,7 @@
         ctx.drawImage(branch_img, branch.x, branch.y);
 
         // Draw Escapes
+        /*
         ctx.save();
         ctx.globalCompositeOperation = 'lighter';
         ctx.fillStyle = 'green';
@@ -178,6 +180,7 @@
           branch.escape_h
         );
         ctx.restore();
+        */
       });
 
       if (dead_branch) {

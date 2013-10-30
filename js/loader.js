@@ -37,7 +37,7 @@
     backtrees : "img/back_trees.png",
     berries : "img/berries.png",
     bg_combined: "img/bg_combined.png",
-    branch : "img/branch.png",
+    branch : "img/branch_new.png",
     clouds : "img/clouds.png",
     coins : "img/coins.png",
     controls : "img/controls.png",
