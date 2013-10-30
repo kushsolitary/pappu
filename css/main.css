@@ -152,7 +152,7 @@ html {
 	font-family: 'Happy Sans', cursive;
 }
 
-#credits, .high_score, #last_score {
+#credits, .high_score, #last_score, #help {
 	font: 1.4rem 'Happy Sans', cursive;
 	color: white;
 	padding: 0;
@@ -165,7 +165,7 @@ html {
 	text-decoration: none;
 }
 
-#credits p {
+#credits p, #help p {
 	color: #000;
 	position: absolute;
 	width: 100%;

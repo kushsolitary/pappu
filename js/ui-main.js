@@ -23,6 +23,11 @@ $("a#credit").click(function() {
   $("#credits").fadeIn('fast');
 });
 
+$("a#helps").click(function() {
+  $("#start_screen").fadeOut('fast');
+  $("#help").fadeIn('fast');
+});
+
 $("a#back").click(function() {
   $(this).parent('.main').fadeOut('fast');
   ui.start_screen.fadeIn('fast');
@@ -74,7 +79,7 @@ $("#mute").click(function() {
 
 // Positioning stuff
 var credit_height = $("#credits p").height();
-$("#credits p").css({
+$("#credits p, #help p").css({
   'top': 35 + '%'
 });
 
