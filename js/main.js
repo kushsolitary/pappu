@@ -55,6 +55,9 @@ mit.main = function() {
   
   mit.isMute = false;
 
+  mit.music.play();
+
+
   /*
     Game Start Screen and Lolz
   */
@@ -67,7 +70,6 @@ mit.main = function() {
   mit.startGame = function(level) {
     // Play the awesome music! Really awesome
     mit.level = level;
-    mit.music.play();
 
     flap.pause();
 
@@ -85,7 +87,7 @@ mit.main = function() {
     mit.start_btn_clicked = 1;
     mit.game_started = 0;
 
-    mit.Backgrounds.common_bg_speed = (mit.level > 0) ? ((mit.level == 1) ? 1.5 : 2) : 1;
+    mit.Backgrounds.common_bg_speed = (mit.level > 0) ? ((mit.level == 1) ? 1.2 : 1.4) : 1;
     mit.Backgrounds.resetAllSpeed();
 
     // Reset all accelerations and make
@@ -126,14 +128,16 @@ mit.main = function() {
   // startGame();
   // Score Board
   mit.score = 0;
-  try {
 
+  if(localStorage.getItem("highScore")) {
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
     if (mit.highScore)
       CocoonJS.App.forward('ui.high_score.text("High Score: "+' +  mit.highScore + ');');
-
-  } catch (e) {}
-
+    else
+      CocoonJS.App.forward('ui.high_score.text("High Score: 0");');
+  }
+  else
+    CocoonJS.App.forward('ui.high_score.text("High Score: 0");');
 
   // Set Canvas Width/Height in Config
   mit.config.canvas_width = mit.W = W;
@@ -199,8 +203,6 @@ mit.main = function() {
   */
   mit.gameOver = function() {
 
-    CocoonJS.App.forward("showMenu();");
-
     // High Score
     if (mit.score > mit.highScore) {
       mit.highScore = parseInt(mit.score);
@@ -226,8 +228,9 @@ mit.main = function() {
     // Nuke all clones
     mit.Pappu.clones.length = 0;
 
-    CocoonJS.App.forward("changeURL();");
+    // CocoonJS.App.forward("changeURL();");
 
+    CocoonJS.App.forward("showMenu();");
   };
 
   mit.last_time = new Date();

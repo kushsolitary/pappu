@@ -85,15 +85,23 @@ html {
 
 
 /* Score Board */
-#score_board {
+#score_board, #back {
 	position: absolute;
-	top: 0; left: 0; right: 0;
-	padding: 10px;
-	height: 10%;
-	text-align: left;
+	top: 3%; left: 3%;
 	font-size: 1.7rem;
 	font-weight: normal;
 	font-family: 'Happy Sans', cursive;
+	display: none;
+}
+
+#back {
+	display: inline-block;
+	left: none;
+	right: 2%;
+	padding: 10px;
+	color: #945430 !important;
+	text-decoration: none;
+	text-align: right;
 }
 
 #invincible_timer {
@@ -124,7 +132,7 @@ html {
 	width: 100%;
 }
 
-#level_select {
+#level_select, #credits, #help {
 	position: absolute;
 	left: 0;
 	top: 0;
@@ -134,7 +142,7 @@ html {
 	display: none;
 }
 
-#level_select a {
+#level_select a.levels {
 	font-size: 2rem;
 	color: #945430;
 	text-decoration: none;
@@ -165,6 +173,15 @@ html {
 #credits a {
 	color: #FFEEAA;
 	text-decoration: none;
+}
+
+#credits p {
+	color: #000;
+	position: absolute;
+	width: 100%;
+	text-align: center;
+	left: 0;
+	top: 0;
 }
 
 .options {

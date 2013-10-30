@@ -16,7 +16,6 @@ currentWidth = WIDTH/scale;
 
 $('html').css('font-size', (100/scale) + '%');
 
-
 window.addEventListener('resize', function() {
 
   currentHeight = window.innerHeight;

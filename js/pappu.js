@@ -199,7 +199,9 @@
       var ctop = (this.y < 0 - this.h);
       var cbtm = (this.y > mit.H);
       var cleft = (this.x < 0);
-      var crgt = (this.x > mit.W);
+      var crgt = (this.x + this.w > mit.W);
+
+      // console.log(ctop, cbtm, cleft, crgt);
 
       // return true if crossed any sides
       if (ctop || cbtm || cleft || crgt) {
