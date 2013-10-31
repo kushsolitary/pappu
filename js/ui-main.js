@@ -13,7 +13,7 @@ ui.start_game.on('click', function() {
   // alert(ind);
   CocoonJS.App.forward("mit.startGame(" + ind + ");");
 
-  ui.score_board.fadeIn('fast');
+  // ui.score_board.fadeIn('fast');
   // alert(ind);
   ui.level_select.fadeOut('fast');
 });
@@ -40,19 +40,19 @@ ui.main_menu.click(function() {
 
 ui.restart.click(function() {
   ui.gameover.fadeOut('fast');
-  ui.score_board.fadeIn('fast');
+  // ui.score_board.fadeIn('fast');
   CocoonJS.App.forward("mit.startGame(mit.level);");
 });
 
 function showMenu() {
-  ui.score_board.fadeOut('fast');
+  // ui.score_board.fadeOut('fast');
   ui.start_screen.fadeIn('fast');
 
   ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));
 }
 
 function showGOScreen() {
-  ui.score_board.fadeOut('fast');
+  // ui.score_board.fadeOut('fast');
   ui.gameover.fadeIn('fast');
 
   ui.last_score.text("Last Score: " + parseInt(CocoonJS.App.forward("mit.score")));

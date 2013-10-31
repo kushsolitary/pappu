@@ -37,16 +37,12 @@ mit.main = function() {
 
   // Responsive fonts!
   CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
-  
-  var bgcanvas = document.createElement('canvas');
-  document.body.appendChild(bgcanvas);
+
   var canvas = CocoonJS.App.createScreenCanvas();
-
   var ctx = canvas.getContext('2d');
-  var bgctx = bgcanvas.getContext('2d');
 
-  var W = canvas.width = 1136;
-  var H = canvas.height = 640;
+  W = canvas.width = 1136;
+  H = canvas.height = 640;
 
   mit.music = mit.audio.loadMusic;
   mit.music.loop = true;
@@ -54,6 +50,7 @@ mit.main = function() {
   mit.music.volume = 0.2;
   
   mit.isMute = false;
+  mit.isPaused = false;
 
   mit.music.play();
 
@@ -69,6 +66,7 @@ mit.main = function() {
   // Start Button
   mit.startGame = function(level) {
     // Play the awesome music! Really awesome
+    elem.game_screen.isVisible = true;
     mit.level = level;
 
     flap.pause();
@@ -189,10 +187,35 @@ mit.main = function() {
   // Game play on touch too!
   window.addEventListener('touchstart', function(e) {
     mit.ascend();
+
+
   }, false);
 
   window.addEventListener('touchend', function(e) {
     mit.descend();
+
+    // Check if buttons are pressed and show respective screens / perform actions
+    for(var i = 0; i < e.changedTouches.length; i++) {
+      var t = e.changedTouches[i];
+      var x = t.pageX;
+      var y = t.pageY;
+
+      if(elem.game_screen.pauseBtn.tap(x, y)) {
+        // Show pause menu
+
+        if(!elem.pause_screen.isVisible) {
+          mit.music.pause();
+          mit.isPaused = true;
+        }
+        else {
+          mit.music.play();
+          mit.isPaused = false;
+          elem.pause_screen.remove(ctx);
+          CocoonJS.App.resume();
+        }
+      }
+    }
+
   }, false);
 
 
@@ -203,6 +226,8 @@ mit.main = function() {
   */
   mit.gameOver = function() {
 
+    elem.game_screen.isVisible = false;
+    
     // High Score
     if (mit.score > mit.highScore) {
       mit.highScore = parseInt(mit.score);
@@ -245,6 +270,7 @@ mit.main = function() {
   mit.Pappu.init();
   mit.PakiaUtils.init();
 
+
   (function renderGame() {
     window.requestAnimationFrame(renderGame);
 
@@ -252,6 +278,12 @@ mit.main = function() {
 
     ctx.clearRect(0, 0, W, H);
     mit.Backgrounds.draw(ctx);
+
+    // 
+    if (mit.isPaused) {
+      elem.pause_screen.draw(ctx);
+      CocoonJS.App.pause();
+    }
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
@@ -316,7 +348,8 @@ mit.main = function() {
         mit.score = mit.score += 0.1;
       }
 
-      CocoonJS.App.forward("ui.score_board.text(" + parseInt(mit.score) + ");");
+      // CocoonJS.App.forward("ui.score_board.text(" + parseInt(mit.score) + ");");
+      elem.game_screen.draw(ctx, parseInt(mit.score));
 
       // Acceleration + Gravity
       // mit.ay = mit.ay + mit.gravity;

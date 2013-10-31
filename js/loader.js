@@ -18,6 +18,7 @@
     loadHappy: 'sound/jump3.ogg',
     loadFlap: 'sound/flap.ogg', 
     loadTing: 'sound/ting.ogg',
+    loadButton: 'sound/button.ogg'
   };
 
     for (var name in mit.audio) {

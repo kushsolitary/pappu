@@ -1,13 +1,11 @@
 @font-face{ 
-	font-family: 'Happy Sans';
+	font-family: 'HappySans';
 	src: url('../fonts/happy_sans-webfont.eot');
 	src: url('../fonts/happy_sans-webfont.eot?#iefix') format('embedded-opentype'),
 	     url('../fonts/happy_sans-webfont.woff') format('woff'),
 	     url('../fonts/happy_sans-webfont.ttf') format('truetype'),
 	     url('../fonts/happy_sans-webfont.svg#webfont') format('svg');
 }
-
-@import url(http://fonts.googleapis.com/css?family=Open+Sans);
 
 * {
   margin: 0; padding: 0;
@@ -90,7 +88,7 @@ html {
 	top: 3%; left: 3%;
 	font-size: 1.7rem;
 	font-weight: normal;
-	font-family: 'Happy Sans', cursive;
+	font-family: 'HappySans', cursive;
 	display: none;
 }
 
@@ -149,11 +147,11 @@ html {
 	color: #945430;
 	text-align: center;
 	padding: 0;
-	font-family: 'Happy Sans', cursive;
+	font-family: 'HappySans', cursive;
 }
 
 #credits, .high_score, #last_score, #help {
-	font: 1.4rem 'Happy Sans', cursive;
+	font: 1.4rem 'HappySans', cursive;
 	color: white;
 	padding: 0;
 	text-align: center;
@@ -201,7 +199,7 @@ html {
 */
 
 .plank {
-	font: 1.2rem 'Happy Sans', cursive;
+	font: 1.2rem 'HappySans', cursive;
 	text-align: center;
 	display: block;
 	background-size: contain !important;

@@ -1,3 +1,5 @@
+var W = 1136, H = 640;
+
 var WIDTH = 568;
 var HEIGHT = 320;
 
