@@ -128,6 +128,7 @@ html {
 	height: 100%;
 	z-index: 1;
 	width: 100%;
+	display: none;
 }
 
 #level_select, #credits, #help, #gameover {

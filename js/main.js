@@ -200,9 +200,9 @@ mit.main = function() {
       var x = t.pageX;
       var y = t.pageY;
 
+      // Pause button click
       if(elem.game_screen.pauseBtn.tap(x, y)) {
         // Show pause menu
-
         if(!elem.pause_screen.isVisible) {
           mit.music.pause();
           mit.isPaused = true;
@@ -214,6 +214,15 @@ mit.main = function() {
           CocoonJS.App.resume();
         }
       }
+
+      // Start button click
+      if(elem.main_menu.startButton.tap(x, y)) {
+        elem.main_menu.isVisible = false;
+        mit.startGame(2);
+      }
+
+      if(elem.main_menu.creditsButton.tap(x, y)) {}
+      if(elem.main_menu.helpButton.tap(x, y)) {}
     }
 
   }, false);
@@ -270,6 +279,7 @@ mit.main = function() {
   mit.Pappu.init();
   mit.PakiaUtils.init();
 
+  elem.main_menu.isVisible = true;
 
   (function renderGame() {
     window.requestAnimationFrame(renderGame);
@@ -279,11 +289,15 @@ mit.main = function() {
     ctx.clearRect(0, 0, W, H);
     mit.Backgrounds.draw(ctx);
 
-    // 
+    // Pause the game 
     if (mit.isPaused) {
       elem.pause_screen.draw(ctx);
       CocoonJS.App.pause();
     }
+
+
+    // Show the main menu
+    elem.main_menu.draw(ctx, mit.highScore);
 
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra

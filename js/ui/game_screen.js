@@ -12,10 +12,12 @@
       y: 20,
 
       draw: function(ctx, score) {
+        ctx.save();
         ctx.font = "48px Happy Sans";
         ctx.fillStyle = 'black';
-        ctx.textBaseline = 'top'
+        ctx.textBaseline = 'top';
         ctx.fillText(score, this.x, this.y);
+        ctx.restore();
       }
     },
 
@@ -26,7 +28,10 @@
       h: 40,
 
       draw: function(ctx) {
+        ctx.save();
+        ctx.fillStyle = 'black';
         ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.restore();
         // console.log('yadda');
       },
 
