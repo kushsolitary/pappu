@@ -51,6 +51,7 @@ mit.main = function() {
   
   mit.isMute = false;
   mit.isPaused = false;
+  mit.highScore = 0;
 
   mit.music.play();
 
@@ -253,6 +254,26 @@ mit.main = function() {
         elem.main_menu.isVisible = true;
         elem.level_selection_screen.isVisible = false;
       }
+
+
+      // Click retry
+      if(elem.gameover_screen.retryButton.tap(x, y)) {
+        console.log(mit.level);
+
+        elem.gameover_screen.isVisible = false;
+        mit.startGame();
+        elem.game_screen.instruction.draw(ctx);
+      }
+
+
+      // Click Main Menu
+      if(elem.gameover_screen.mainmenuButton.tap(x, y)) {
+        elem.gameover_screen.isVisible = false;
+        elem.main_menu.isVisible = true;
+
+        mit.Pappu.drawStatic(ctx);
+        mit.game_started = 0;
+      }
     }
 
   }, false);
@@ -294,7 +315,8 @@ mit.main = function() {
 
     // CocoonJS.App.forward("changeURL();");
 
-    CocoonJS.App.forward("showGOScreen();");
+    // CocoonJS.App.forward("showGOScreen();");
+    elem.gameover_screen.isVisible = true;
   };
 
   mit.last_time = new Date();
@@ -349,6 +371,10 @@ mit.main = function() {
     else
       mit.Pappu.updateFlyFrameCount(0);
 
+    // Show the game over screen
+    if(elem.gameover_screen.isVisible)
+      elem.gameover_screen.draw(ctx, parseInt(mit.score), mit.highScore);
+
 
     // Game over on reaching any boundary
     if (mit.Pappu.hasReachedBoundary(W, H)) {
@@ -359,7 +385,6 @@ mit.main = function() {
       mit.gameOver();
       return;
     }
-
     //mit.ForkUtils.draw(ctx);
     //mit.BranchUtils.draw(ctx);
 
