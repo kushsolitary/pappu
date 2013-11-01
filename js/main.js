@@ -64,10 +64,9 @@ mit.main = function() {
 
 
   // Start Button
-  mit.startGame = function(level) {
+  mit.startGame = function() {
     // Play the awesome music! Really awesome
     elem.game_screen.isVisible = true;
-    mit.level = level;
 
     flap.pause();
 
@@ -197,7 +196,7 @@ mit.main = function() {
       var x = t.pageX;
       var y = t.pageY;
 
-      // Pause button click
+      // Pause button clicked
       if(elem.game_screen.pauseBtn.tap(x, y)) {
         // Show pause menu
         if(!elem.pause_screen.isVisible) {
@@ -212,28 +211,47 @@ mit.main = function() {
         }
       }
 
-      // Start button click
+      // Start button clicked
       if(elem.main_menu.startButton.tap(x, y)) {
-        elem.game_screen.instruction.draw(ctx);
         elem.main_menu.isVisible = false;
-        mit.startGame(2);
+
+        // Show level select screen
+        elem.level_selection_screen.isVisible = true;
       }
 
+      // Clicked on a level
+      if(
+        elem.level_selection_screen.optOne.tap(x, y) || 
+        elem.level_selection_screen.optTwo.tap(x, y) ||
+        elem.level_selection_screen.optThree.tap(x, y) 
+      ) {
+        elem.level_selection_screen.isVisible = false;
+        mit.startGame();
+        elem.game_screen.instruction.draw(ctx);
+      }
+
+      // Credit button clicked
       if(elem.main_menu.creditsButton.tap(x, y)) {
         elem.main_menu.isCreditsActive = true;
       }
 
-      // Help butotn click
+      // Help button clicked
       if(elem.main_menu.helpButton.tap(x, y)) {
         elem.main_menu.isHelpActive = true;
       }
 
-      // Back is clicked
+      // Back is clicked in main menu
       if(elem.main_menu.backButton.tap(x, y)) {        
         if(elem.main_menu.isHelpActive || elem.main_menu.isCreditsActive) {
           elem.main_menu.isHelpActive = false;
           elem.main_menu.isCreditsActive = false;
         }
+      }
+
+      // Back is clicked in level selection screen
+      if(elem.level_selection_screen.backButton.tap(x, y)) {        
+        elem.main_menu.isVisible = true;
+        elem.level_selection_screen.isVisible = false;
       }
     }
 
@@ -310,6 +328,7 @@ mit.main = function() {
 
     // Show the main menu
     elem.main_menu.draw(ctx, mit.highScore);
+    elem.level_selection_screen.draw(ctx);
 
     if(elem.main_menu.isHelpActive)
       elem.main_menu.showHelp(ctx);
@@ -425,7 +444,7 @@ mit.main = function() {
     mit.fps = 1e3 / (mit.cur_time - mit.last_time);
     mit.last_time = mit.cur_time;
     */
-    
+
     return;
   }());
 
