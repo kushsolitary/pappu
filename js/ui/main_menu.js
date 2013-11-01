@@ -161,7 +161,7 @@
 
     backButton: {
       x: W - 20 - 60 - 40,
-      y: 50,
+      y: 30,
       w: 60,
       h: 40,
 
@@ -182,7 +182,7 @@
             tx > this.x - 20 && 
             tx < this.x + this.w + 20 && 
             ty > this.y - 20 && 
-            ty < this.y + this.h + 20
+            ty < this.y + this.h + 40
           ) {
           mit.audio.loadButton.play();
           return true;

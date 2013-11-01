@@ -24,9 +24,8 @@
     // Collectible Type - read above
     this.type;
 
-    // Sound
-    this.sound = mit.audio.loadTing;
-    this.sound.volume = 0.35;
+    this.sound = '';
+    this.sound.volume = 0.45;
 
     // Some collectible types may have subtypes
     // like coins of 50, 100, 500, 1000 and so on ...
@@ -202,6 +201,24 @@
 
         // Type
         collec.type = this.types[utils.randomNumber(0, this.types.length-1)];
+
+        // Sound
+        switch (collec.type) {
+          case 'clone':
+            collec.sound = mit.audio.loadBite;
+            collec.sound.volume = 0.5;
+            break;
+
+          case 'coin':
+            collec.sound = mit.audio.loadCoin;
+            collec.sound.volume = 0.35;
+            break;
+
+          case 'invincible':
+            collec.sound = mit.audio.loadTing;
+            collec.sound.volume = 0.35;
+            break;
+        }
 
         // Choosing Sub types if any
         sub_types = this.sub_types[collec.type];

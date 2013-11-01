@@ -8,29 +8,31 @@
 
     // Score
     scoreText: {
-      x: 20,
-      y: 20,
+      x: 40,
+      y: 30,
 
       draw: function(ctx, score) {
         ctx.save();
+        ctx.textBaseline = 'top';
         ctx.font = "48px Happy Sans";
         ctx.fillStyle = 'black';
-        ctx.textBaseline = 'top';
         ctx.fillText(score, this.x, this.y);
         ctx.restore();
       }
     },
 
     pauseBtn: {
-      y: 20,
-      w: 40,
-      x: W - (40 + 20),
+      x: W - 20 - 80 - 40,
+      y: 30,
+      w: 80,
       h: 40,
 
       draw: function(ctx) {
         ctx.save();
-        ctx.fillStyle = 'black';
-        ctx.fillRect(this.x, this.y, this.w, this.h);
+        ctx.textBaseline = 'top';
+        ctx.font = "48px Happy Sans";
+        ctx.fillStyle = 'white';
+        ctx.fillText("Pause", this.x, this.y);
         ctx.restore();
         // console.log('yadda');
       },
@@ -40,10 +42,10 @@
           return false;
 
         if(
-            tx > this.x && 
-            tx < this.x + this.w && 
-            ty > this.y && 
-            ty < this.y + this.h
+            tx > this.x - 20 && 
+            tx < this.x + this.w + 20 && 
+            ty > this.y - 20 && 
+            ty < this.y + this.h + 40
           ) {
           mit.audio.loadButton.play();
           return true;
@@ -65,6 +67,18 @@
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
         ctx.fillText(this.text, this.x, this.y);
+        ctx.restore();
+      }
+    },
+
+    invinceBar: {
+      w: 60,
+      h: 10,
+
+      draw: function(ctx, x, y, percent) {
+        ctx.save();
+        ctx.fillStyle = 'white';
+        ctx.fillRect(x, y + 60, this.w * percent / 100, this.h);
         ctx.restore();
       }
     },

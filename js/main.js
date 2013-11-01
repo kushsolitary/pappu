@@ -171,8 +171,10 @@ mit.main = function() {
       mit.game_over = 0;
     }
 
-    mit.ay = -1.5;
-    mit.flying_up = 1;
+    if(!mit.Pappu.is_dead) {
+      mit.ay = -1.5;
+      mit.flying_up = 1;
+    }
   };
 
   mit.descend = function() {
@@ -260,7 +262,7 @@ mit.main = function() {
 
       // Click retry
       if(elem.gameover_screen.retryButton.tap(x, y)) {
-        console.log(mit.level);
+        // console.log(mit.level);
 
         elem.gameover_screen.isVisible = false;
         mit.startGame();

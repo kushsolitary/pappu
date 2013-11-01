@@ -3,7 +3,7 @@
   // There will be only 1 Pappu
 
   mit.Pappu = {
-    x: 50,
+    x: 100,
     y: 10,
     w: 50,
     h: 50,
@@ -57,7 +57,7 @@
       this.invincibility_start = 0;
       this.invincible_timer = 0;
 
-      CocoonJS.App.forward("ui.invincible_timer.hide();");
+      // CocoonJS.App.forward("ui.invincible_timer.hide();");
     },
 
     draw: function(ctx) {
@@ -116,7 +116,10 @@
         if (timer_progress > 100)
           this.undoInvincible();
         else {
-          CocoonJS.App.forward("ui.invincible_loader.css('width', " + (100 - timer_progress) + " + '%')");
+          ctx.globalAlpha = 0.6;
+          // CocoonJS.App.forward("ui.invincible_loader.css('width', " + (100 - timer_progress) + " + '%')");
+          elem.game_screen.invinceBar.draw(ctx, -this.w/2, -this.h/2, 100 - timer_progress);
+          ctx.globalAlpha = 0.4;
         }
 
         // console.log(timer_progress)

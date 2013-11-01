@@ -12,12 +12,14 @@
   // Preloading image stuff
 
   mit.audio = {
-    loadMusic: 'sound/pappu-pakia2.3.ogg', 
+    loadMusic: 'sound/music.ogg', 
     loadAngry: 'sound/jump1.ogg', 
     loadSad: 'sound/jump2.ogg', 
     loadHappy: 'sound/jump3.ogg',
     loadFlap: 'sound/flap.ogg', 
     loadTing: 'sound/ting.ogg',
+    loadBite: 'sound/bite.ogg',
+    loadCoin: 'sound/coin.ogg',
     loadButton: 'sound/button.ogg'
   };
 
