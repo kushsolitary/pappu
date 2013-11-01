@@ -1,12 +1,3 @@
-@font-face{ 
-	font-family: 'HappySans';
-	src: url('../fonts/happy_sans-webfont.eot');
-	src: url('../fonts/happy_sans-webfont.eot?#iefix') format('embedded-opentype'),
-	     url('../fonts/happy_sans-webfont.woff') format('woff'),
-	     url('../fonts/happy_sans-webfont.ttf') format('truetype'),
-	     url('../fonts/happy_sans-webfont.svg#webfont') format('svg');
-}
-
 * {
   margin: 0; padding: 0;
   -moz-box-sizing: border-box;

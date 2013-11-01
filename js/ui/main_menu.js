@@ -5,6 +5,8 @@
 
   elem.main_menu = {
     isVisible: false,
+    isHelpActive: false,
+    isCreditsActive: false,
 
     // Title
     title: {
@@ -52,7 +54,7 @@
         ctx.drawImage(this.img, this.x, this.y);
 
         ctx.save();
-        ctx.font = "32px Happy Sans";
+        ctx.font = "38px Happy Sans";
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -92,7 +94,7 @@
         ctx.drawImage(this.img, this.x, this.y);
 
         ctx.save();
-        ctx.font = "32px Happy Sans";
+        ctx.font = "38px Happy Sans";
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -131,7 +133,7 @@
         ctx.drawImage(this.img, this.x, this.y);
 
         ctx.save();
-        ctx.font = "32px Happy Sans";
+        ctx.font = "38px Happy Sans";
         ctx.fillStyle = '#fff';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
@@ -157,11 +159,44 @@
       }
     },
 
+    backButton: {
+      x: W - 20 - 60 - 30,
+      y: 20,
+      w: 60,
+      h: 40,
+
+      draw: function(ctx) {
+        ctx.save();
+        ctx.font = "48px Happy Sans";
+        ctx.fillStyle = 'white';
+        ctx.textBaseline = 'top';
+        ctx.fillText("Back", this.x, this.y);
+        ctx.restore();
+      },
+
+      tap: function(tx, ty) {
+        if(!elem.main_menu.isVisible)
+          return false;
+
+        if(
+            tx > this.x - 20 && 
+            tx < this.x + this.w + 20 && 
+            ty > this.y - 20 && 
+            ty < this.y + this.h + 20
+          ) {
+          mit.audio.loadButton.play();
+          return true;
+        }
+        else
+          return false;
+      }
+    },
+
 
     // Draw the main menu
     draw: function(ctx, score) {
 
-      if(this.isVisible) {
+      if(this.isVisible && (!this.isHelpActive && !this.isCreditsActive)) {
         // Draw stand
         ctx.drawImage(mit.image.stand, this.startButton.x + this.startButton.w/2 - 30, H - 395);
 
@@ -174,6 +209,34 @@
 
       else
         return;
+    },
+
+    showHelp: function(ctx) {
+      ctx.save();
+      ctx.font = "48px Happy Sans";
+      ctx.fillStyle = '#945430';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText("Hold the screen to fly up and release to fall down.", W/2, H/2 - 80);
+      ctx.fillText("Use power ups and coins to get more points!", W/2, H/2 - 24);
+      ctx.fillText("Avoid Pakias as they might pull, push or kill you!", W/2, H/2 + 60);
+      ctx.restore();
+
+      this.backButton.draw(ctx);
+    },
+
+    showCredits: function(ctx) {
+      ctx.save();
+      ctx.font = "48px Happy Sans";
+      ctx.fillStyle = '#945430';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText("Handsomly coded and beautifully designed by", W/2, H/2 - 80);
+      ctx.fillText("Kushagra, Ekta, Ankish and Sohit.", W/2, H/2 - 24);
+      ctx.fillText("Thanks to Rezoner (@rezoner) for the music!", W/2, H/2 + 60);
+      ctx.restore();
+
+      this.backButton.draw(ctx);
     }
 
   };

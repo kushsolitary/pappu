@@ -9,7 +9,7 @@
     title: {
       text: 'Paused',
       x: W/2,
-      y: 50,
+      y: 90,
 
       draw: function(ctx) {
         ctx.save();

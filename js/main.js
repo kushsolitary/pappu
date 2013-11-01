@@ -77,8 +77,6 @@ mit.main = function() {
     }, false);
     */
 
-    // Hide the Start Screen
-
     // Start btn has been clicked
     // Game hasnt started. Game will
     // start on flight.
@@ -188,7 +186,6 @@ mit.main = function() {
   window.addEventListener('touchstart', function(e) {
     mit.ascend();
 
-
   }, false);
 
   window.addEventListener('touchend', function(e) {
@@ -217,12 +214,27 @@ mit.main = function() {
 
       // Start button click
       if(elem.main_menu.startButton.tap(x, y)) {
+        elem.game_screen.instruction.draw(ctx);
         elem.main_menu.isVisible = false;
         mit.startGame(2);
       }
 
-      if(elem.main_menu.creditsButton.tap(x, y)) {}
-      if(elem.main_menu.helpButton.tap(x, y)) {}
+      if(elem.main_menu.creditsButton.tap(x, y)) {
+        elem.main_menu.isCreditsActive = true;
+      }
+
+      // Help butotn click
+      if(elem.main_menu.helpButton.tap(x, y)) {
+        elem.main_menu.isHelpActive = true;
+      }
+
+      // Back is clicked
+      if(elem.main_menu.backButton.tap(x, y)) {        
+        if(elem.main_menu.isHelpActive || elem.main_menu.isCreditsActive) {
+          elem.main_menu.isHelpActive = false;
+          elem.main_menu.isCreditsActive = false;
+        }
+      }
     }
 
   }, false);
@@ -299,6 +311,12 @@ mit.main = function() {
     // Show the main menu
     elem.main_menu.draw(ctx, mit.highScore);
 
+    if(elem.main_menu.isHelpActive)
+      elem.main_menu.showHelp(ctx);
+
+    if(elem.main_menu.isCreditsActive)
+      elem.main_menu.showCredits(ctx);
+
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
     // just WANTS me to do this extra work :/
@@ -335,6 +353,7 @@ mit.main = function() {
     // mit.CollectibleUtils.draw(ctx);
 
     // mit.Pappu.createClones(3);
+    elem.game_screen.draw(ctx, parseInt(mit.score));
 
     if (mit.game_started) {
 
@@ -363,7 +382,6 @@ mit.main = function() {
       }
 
       // CocoonJS.App.forward("ui.score_board.text(" + parseInt(mit.score) + ");");
-      elem.game_screen.draw(ctx, parseInt(mit.score));
 
       // Acceleration + Gravity
       // mit.ay = mit.ay + mit.gravity;
@@ -401,11 +419,13 @@ mit.main = function() {
       mit.Pappu.drawStatic(ctx);
     }
 
+    /*
     // Calculate FPS
     mit.cur_time = new Date;
     mit.fps = 1e3 / (mit.cur_time - mit.last_time);
     mit.last_time = mit.cur_time;
-
+    */
+    
     return;
   }());
 

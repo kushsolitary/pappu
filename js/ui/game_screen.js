@@ -53,9 +53,30 @@
       }
     },
 
+    // Show "touch the screen to fly!"
+    instruction: {
+      x: W/2,
+      y: H/2,
+      text: "Touch and hold to fly up. Release to fall down.",
+      draw: function(ctx) {
+        ctx.save();
+        ctx.fillStyle = 'white';
+        ctx.font = '48px Happy Sans';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        ctx.fillText(this.text, this.x, this.y);
+        ctx.restore();
+      }
+    },
+
     draw: function(ctx, score) {
-      this.pauseBtn.draw(ctx);
-      this.scoreText.draw(ctx, score);
+      if(mit.start_btn_clicked) {
+        this.pauseBtn.draw(ctx);
+        this.scoreText.draw(ctx, score);
+
+        if(!mit.game_started)
+          this.instruction.draw(ctx);
+      }
     }
   };
 

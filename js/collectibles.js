@@ -105,7 +105,7 @@
     //types: ['invincible'],
 
     sub_types: {
-      coin: [50, 100, 500]
+      coin: [20, 50, 100]
     },
 
     init: function() {
@@ -125,15 +125,15 @@
     getCoinSpritePos: function(sub_type) {
 
       switch (sub_type) {
-        case 50:
+        case 20:
           // Yellow (first)
           return {x: 0, y: 0};
 
-        case 100:
+        case 50:
           // Pink (second)
           return {x: 30, y: 0};
 
-        case 500:
+        case 100:
           // Red (third)
           // Pink (second)
           return {x: 60, y: 0};

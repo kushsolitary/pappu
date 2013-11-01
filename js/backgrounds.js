@@ -402,7 +402,7 @@
 
 
       // Increasing speed based on points
-      if (mit.score > 200 && !this.first_speed_inc) {
+      if (mit.score > 700 && !this.first_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;
@@ -412,7 +412,7 @@
         this.first_speed_inc = 1;
       }
 
-      if (mit.score > 1000 && !this.second_speed_inc) {
+      if (mit.score > 2000 && !this.second_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;
@@ -422,7 +422,7 @@
         this.second_speed_inc = 1;
       }
 
-      if (mit.score > 3000 && !this.third_speed_inc) {
+      if (mit.score > 5000 && !this.third_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;
