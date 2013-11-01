@@ -211,7 +211,7 @@
         var escape_bounds = first_branch.getEscapeBounds();
 
         if (!utils.intersect(pappu_bounds, escape_bounds)) {
-          mit.gameOver();
+          mit.stopMotion();
         }
 
       }

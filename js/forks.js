@@ -306,7 +306,7 @@
       // fork handle or not.
       if (utils.intersect(pappu_bounds, fork_bounds)) {
         // console.log(pappu_bounds, fork_bounds);
-        mit.gameOver();
+        mit.stopMotion();
       }
 
       // We'll have to check for collision with fork heads.
@@ -326,7 +326,7 @@
         pappu_bounds.end_y      >  fork_head_bounds.start_y+20 &&
         fork_head_bounds.end_y-20  >  pappu_bounds.start_y
       ) {
-        mit.gameOver();
+        mit.stopMotion();
       }
     }
 

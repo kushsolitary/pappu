@@ -218,7 +218,7 @@
         // Depending upon the type of the pakia
         switch (this.cur_pakia.type) {
           case 'angry':
-            mit.gameOver();
+            mit.stopMotion();
             break;
 
           case 'sad':

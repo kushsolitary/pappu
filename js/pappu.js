@@ -13,6 +13,8 @@
     invincibility_time: 0,
     clones: [],
 
+    is_dead: false,
+
     rotate_angle: 0,
 
     sprite: {},
@@ -83,7 +85,7 @@
           this.rotate_angle -= 2;
         }
       }
-      else if (mit.game_over) {
+      else if (this.is_dead) {
         // draw() is called as long as
         // pappu hasnt hit boundaries and over'ed the game :P
 

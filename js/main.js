@@ -109,6 +109,15 @@ mit.main = function() {
     // Nuke all pakias and cur_pakia
     mit.PakiaUtils.pakias = [];
     mit.PakiaUtils.cur_pakia = false;
+
+    mit.Pappu.is_dead = false;
+
+    // Velocity cap on either sides of the
+    // number system.
+    // 
+    // You can console.log velocities in drawing methods
+    // and from there decide what to set as the cap.
+    mit.v_cap = (mit.level > 0) ? ((mit.level == 1) ? 11 : 12) : 10;
   };
 
 /*
@@ -145,13 +154,6 @@ mit.main = function() {
   // Velocity x,y
   mit.vx = 0;
   mit.vy = 0;
-
-  // Velocity cap on either sides of the
-  // number system.
-  // 
-  // You can console.log velocities in drawing methods
-  // and from there decide what to set as the cap.
-  mit.v_cap = (mit.level > 0) ? ((mit.level == 1) ? 12 : 14) : 10;
 
   // Accelaration x,y
   mit.ax = 0;
@@ -297,15 +299,28 @@ mit.main = function() {
 
     }
 
-    mit.descend();
+    // mit.descend();
 
     // Stop background
-    mit.Backgrounds.common_bg_speed = 0;
-    mit.Backgrounds.ground_bg_move_speed = 0;
-    mit.Backgrounds.fps = 0;
+    mit.stopMotion();
 
     mit.game_over = 1;
     mit.start_btn_clicked = 0;
+
+
+    // CocoonJS.App.forward("changeURL();");
+
+    // CocoonJS.App.forward("showGOScreen();");
+    elem.gameover_screen.isVisible = true;
+  };
+
+  mit.stopMotion = function() {
+    // Stop background
+    mit.descend();
+
+    mit.Backgrounds.common_bg_speed = 0;
+    mit.Backgrounds.ground_bg_move_speed = 0;
+    mit.Backgrounds.fps = 0;
 
     // Pappu if invincible will be no morez
     mit.Pappu.undoInvincible();
@@ -313,11 +328,9 @@ mit.main = function() {
     // Nuke all clones
     mit.Pappu.clones.length = 0;
 
-    // CocoonJS.App.forward("changeURL();");
-
-    // CocoonJS.App.forward("showGOScreen();");
-    elem.gameover_screen.isVisible = true;
-  };
+    mit.Pappu.is_dead = true;
+    mit.v_cap = 100;
+  }
 
   mit.last_time = new Date();
 
