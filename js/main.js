@@ -36,7 +36,7 @@ mit.main = function() {
   // Main Canvas
 
   // Responsive fonts!
-  CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
+  // CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
 
   var canvas = CocoonJS.App.createScreenCanvas();
   var ctx = canvas.getContext('2d');
@@ -136,13 +136,13 @@ mit.main = function() {
 
   if(localStorage.getItem("highScore")) {
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
-    if (mit.highScore)
-      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
-    else
-      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
+    // if (mit.highScore)
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
+    // else
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
   }
-  else
-      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
+  // else
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
 
   // Set Canvas Width/Height in Config
   mit.config.canvas_width = mit.W = W;
@@ -297,7 +297,7 @@ mit.main = function() {
       mit.highScore = parseInt(mit.score);
       localStorage.setItem("highScore", JSON.stringify(parseInt(mit.score)));
 
-      CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
 
     }
 
@@ -426,8 +426,10 @@ mit.main = function() {
       if (!mit.Pappu.invincible) {
         mit.ForkUtils.checkCollision();
         mit.BranchUtils.checkCollision();
-        mit.PakiaUtils.checkCollision();
       }
+
+      mit.PakiaUtils.checkCollision();
+
       mit.CollectibleUtils.checkCollision();
       mit.Pappu.checkCloneCollision();
 

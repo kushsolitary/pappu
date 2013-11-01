@@ -215,34 +215,40 @@
         pakia_bounds.end_y-20  >  pappu_bounds.start_y
       ) {
 
-        // Depending upon the type of the pakia
-        switch (this.cur_pakia.type) {
-          case 'angry':
-            mit.stopMotion();
-            break;
+        if(!mit.Pappu.invincible) {
+          // Depending upon the type of the pakia
+          switch (this.cur_pakia.type) {
+            case 'angry':
+              mit.stopMotion();
+              break;
 
-          case 'sad':
-            // Pull
+            case 'sad':
+              // Pull
 
-            if (!this.cur_pakia.has_stuck) {
-              mit.vy += 20;
-              this.cur_pakia.y += 20;
-              this.cur_pakia.vx = 0;
-            }
+              if (!this.cur_pakia.has_stuck) {
+                mit.vy += 20;
+                this.cur_pakia.y += 20;
+                this.cur_pakia.vx = 0;
+              }
 
-            this.cur_pakia.has_stuck = 1;
+              this.cur_pakia.has_stuck = 1;
 
-            break;
+              break;
 
-          case 'happy':
-            // Push
+            case 'happy':
+              // Push
 
-            if (this.cur_pakia.vy < 0)
-              mit.vy -= 10;
-            else
-              mit.vy += 10;
+              if (this.cur_pakia.vy < 0)
+                mit.vy -= 10;
+              else
+                mit.vy += 10;
 
-            break;
+              break;
+          }
+        }
+
+        else {
+          mit.PakiaUtils.died(this.cur_pakia);
         }
 
       }
