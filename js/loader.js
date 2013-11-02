@@ -20,6 +20,7 @@
     loadTing: 'sound/ting.ogg',
     loadBite: 'sound/bite.ogg',
     loadCoin: 'sound/coin.ogg',
+    loadHit: 'sound/hit.ogg',
     loadButton: 'sound/button.ogg'
   };
 

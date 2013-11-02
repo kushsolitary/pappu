@@ -343,7 +343,16 @@
 
           if (utils.intersect(pakia_bound, clone_bound)) {
             // mit.PakiaUtils.cur_pakia = false;
+            mit.audio.loadHit.play();
             pakia_dead = mit.PakiaUtils.died(mit.PakiaUtils.cur_pakia);
+
+            if(!mit.PakiaUtils.cur_pakia.has_stuck) {
+              mit.bonus = 100;
+              mit.score += 100;
+            }
+
+            mit.PakiaUtils.cur_pakia.has_stuck = 1;
+
           }
 
           return;

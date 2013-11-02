@@ -201,7 +201,7 @@
       }
     },
 
-    checkCollision: function() {
+    checkCollision: function(ctx) {
       if (!this.cur_pakia || this.cur_pakia.isDead)
         return;
 
@@ -219,6 +219,7 @@
           // Depending upon the type of the pakia
           switch (this.cur_pakia.type) {
             case 'angry':
+              mit.audio.loadHit.play();
               mit.stopMotion();
               break;
 
@@ -226,9 +227,13 @@
               // Pull
 
               if (!this.cur_pakia.has_stuck) {
+                mit.audio.loadHit.play();
                 mit.vy += 20;
                 this.cur_pakia.y += 20;
                 this.cur_pakia.vx = 0;
+
+                mit.bonus = (mit.score - 100 > 199) ? -100 : - parseInt(mit.score - 200);
+                mit.score += mit.bonus;
               }
 
               this.cur_pakia.has_stuck = 1;
@@ -238,17 +243,31 @@
             case 'happy':
               // Push
 
-              if (this.cur_pakia.vy < 0)
-                mit.vy -= 10;
-              else
-                mit.vy += 10;
+              if (!this.cur_pakia.has_stuck) {
+                if (this.cur_pakia.vy < 0)
+                  mit.vy -= 10;
+                else
+                  mit.vy += 10;
+
+                mit.bonus = (mit.score - 100 > 199) ? -100 : - parseInt(mit.score - 200);
+                mit.score += mit.bonus;
+
+                mit.audio.loadHit.play();
+              }
+
+              this.cur_pakia.has_stuck = 1;
+
 
               break;
           }
         }
 
         else {
+          mit.audio.loadHit.play();
           mit.PakiaUtils.died(this.cur_pakia);
+
+          mit.bonus = 100;
+          mit.score += 100;
         }
 
       }

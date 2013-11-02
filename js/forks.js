@@ -14,6 +14,9 @@
     this.w = 0;
     this.h = 0;
 
+    // Sound
+    this.sound = mit.audio.loadHit;
+    this.sound.volume = 0.7;
 
     // Head x/y
     this.head_x = 0;
@@ -119,10 +122,10 @@
       if (this.forks[this.forks.length-1]) {
         pos.x = this.forks[this.forks.length-1].x;
 
-        if (mit.score > 2500)
-          pos.x += utils.randomNumber(300,600);
+        if (mit.score > 1500)
+          pos.x += utils.randomNumber(200,500);
         else
-          pos.x += utils.randomNumber(500,800);
+          pos.x += utils.randomNumber(300,600);
       }
       else {
         pos.x = mit.W/1000 * 1050;
@@ -306,6 +309,8 @@
       // fork handle or not.
       if (utils.intersect(pappu_bounds, fork_bounds)) {
         // console.log(pappu_bounds, fork_bounds);
+        if(!mit.Pappu.is_dead)
+          first_fork.sound.play();
         mit.stopMotion();
       }
 
@@ -326,6 +331,8 @@
         pappu_bounds.end_y      >  fork_head_bounds.start_y+20 &&
         fork_head_bounds.end_y-20  >  pappu_bounds.start_y
       ) {
+        if(!mit.Pappu.is_dead)
+          first_fork.sound.play();
         mit.stopMotion();
       }
     }

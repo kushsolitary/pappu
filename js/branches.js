@@ -26,6 +26,10 @@
     // Height
     this.h;
 
+    // Sound
+    this.sound = mit.audio.loadHit;
+    this.sound.volume = 0.7;
+
     this.escape_x;
     this.escape_y;
     this.escape_w;
@@ -211,6 +215,8 @@
         var escape_bounds = first_branch.getEscapeBounds();
 
         if (!utils.intersect(pappu_bounds, escape_bounds)) {
+          if(!mit.Pappu.is_dead)
+            first_branch.sound.play();
           mit.stopMotion();
         }
 

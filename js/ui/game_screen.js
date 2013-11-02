@@ -72,7 +72,7 @@
     },
 
     invinceBar: {
-      w: 60,
+      w: 70,
       h: 10,
 
       draw: function(ctx, x, y, percent) {
@@ -83,10 +83,47 @@
       }
     },
 
-    draw: function(ctx, score) {
+    scoreBonus: {
+      opacity: 1,
+      x: W/2,
+      y: H/2,
+
+      draw: function(ctx, bonus) {
+        if(bonus) {
+          ctx.save();
+
+          ctx.font = '48px Happy Sans';
+          ctx.textBaseline = 'middle';
+          ctx.textAlign = 'center';
+          ctx.fillStyle = 'rgba(0, 156, 0, ' + this.opacity + ')';
+          if(bonus < -1) {
+            ctx.fillStyle = 'rgba(156, 0, 0, ' + this.opacity + ')';
+            ctx.fillText(bonus, this.x, this.y);
+          }
+          else if(bonus > 1) {
+            ctx.fillStyle = 'rgba(0, 156, 0, ' + this.opacity + ')';
+            ctx.fillText("+" + bonus, this.x, this.y);
+          }
+          ctx.restore();
+
+          this.y -= 4;
+          this.opacity -= 0.02;
+
+          if(this.opacity < 0) {
+            mit.bonus = false;
+            this.opacity = 1;
+            this.y = H/2;
+          }
+        }
+      }
+    },
+
+    draw: function(ctx, score, bonus) {
       if(mit.start_btn_clicked) {
         this.pauseBtn.draw(ctx);
         this.scoreText.draw(ctx, score);
+
+        this.scoreBonus.draw(ctx, bonus)
 
         if(!mit.game_started)
           this.instruction.draw(ctx);

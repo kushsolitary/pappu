@@ -104,7 +104,7 @@
     //types: ['invincible'],
 
     sub_types: {
-      coin: [20, 50, 100]
+      coin: [20, 60, 100]
     },
 
     init: function() {
@@ -128,7 +128,7 @@
           // Yellow (first)
           return {x: 0, y: 0};
 
-        case 50:
+        case 60:
           // Pink (second)
           return {x: 30, y: 0};
 
@@ -206,7 +206,7 @@
         switch (collec.type) {
           case 'clone':
             collec.sound = mit.audio.loadBite;
-            collec.sound.volume = 0.5;
+            collec.sound.volume = 0.7;
             break;
 
           case 'coin':
@@ -216,7 +216,7 @@
 
           case 'invincible':
             collec.sound = mit.audio.loadTing;
-            collec.sound.volume = 0.35;
+            collec.sound.volume = 0.4;
             break;
         }
 
@@ -269,6 +269,7 @@
 
           case 'coin':
             mit.score += collec.sub_type;
+            mit.bonus = collec.sub_type;
             break;
 
           case 'clone':

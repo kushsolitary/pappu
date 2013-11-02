@@ -52,6 +52,7 @@ mit.main = function() {
   mit.isMute = false;
   mit.isPaused = false;
   mit.highScore = 0;
+  mit.bonus = false;
 
   mit.music.play();
 
@@ -217,11 +218,12 @@ mit.main = function() {
       }
 
       // Start button clicked
-      if(elem.main_menu.startButton.tap(x, y)) {
-        elem.main_menu.isVisible = false;
-
-        // Show level select screen
-        elem.level_selection_screen.isVisible = true;
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.startButton.tap(x, y)) {
+          // Show level select screen
+          elem.main_menu.isVisible = false;
+          elem.level_selection_screen.isVisible = true;
+        }
       }
 
       // Clicked on a level
@@ -236,20 +238,26 @@ mit.main = function() {
       }
 
       // Credit button clicked
-      if(elem.main_menu.creditsButton.tap(x, y)) {
-        elem.main_menu.isCreditsActive = true;
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.creditsButton.tap(x, y)) {
+          elem.main_menu.isCreditsActive = true;
+        }
       }
 
       // Help button clicked
-      if(elem.main_menu.helpButton.tap(x, y)) {
-        elem.main_menu.isHelpActive = true;
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.helpButton.tap(x, y)) {
+          elem.main_menu.isHelpActive = true;
+        }
       }
 
       // Back is clicked in main menu
-      if(elem.main_menu.backButton.tap(x, y)) {        
-        if(elem.main_menu.isHelpActive || elem.main_menu.isCreditsActive) {
-          elem.main_menu.isHelpActive = false;
-          elem.main_menu.isCreditsActive = false;
+      if(elem.main_menu.isCreditsActive || elem.main_menu.isHelpActive) {
+        if(elem.main_menu.backButton.tap(x, y)) {        
+          if(elem.main_menu.isHelpActive || elem.main_menu.isCreditsActive) {
+            elem.main_menu.isHelpActive = false;
+            elem.main_menu.isCreditsActive = false;
+          }
         }
       }
 
@@ -412,7 +420,7 @@ mit.main = function() {
     // mit.CollectibleUtils.draw(ctx);
 
     // mit.Pappu.createClones(3);
-    elem.game_screen.draw(ctx, parseInt(mit.score));
+    elem.game_screen.draw(ctx, parseInt(mit.score), mit.bonus);
 
     if (mit.game_started) {
 
@@ -428,7 +436,7 @@ mit.main = function() {
         mit.BranchUtils.checkCollision();
       }
 
-      mit.PakiaUtils.checkCollision();
+      mit.PakiaUtils.checkCollision(ctx);
 
       mit.CollectibleUtils.checkCollision();
       mit.Pappu.checkCloneCollision();
