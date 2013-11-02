@@ -202,6 +202,15 @@ mit.main = function() {
       var x = t.pageX;
       var y = t.pageY;
 
+      // Convert the position to original (1136x640) if scaled
+      var percent_x = (x/window.innerWidth) * 100;
+      var percent_y = (y/window.innerHeight) * 100;
+
+      x = percent_x * 1136/100;
+      y = percent_y * 640/100;
+
+      // console.log(x, y);
+
       // Pause button clicked
       if(elem.game_screen.pauseBtn.tap(x, y)) {
         // Show pause menu
