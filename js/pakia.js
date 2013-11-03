@@ -32,13 +32,13 @@
       this.rotate_angle = 0;
       this.isDead = false;
 
-      this.x = mit.config.canvas_width/2 + 200;
+      this.x = mit.config.canvas_width/2 + utils.randomNumber(0, 300);
       this.y = mit.config.canvas_height;
     };
 
     this.generateRandomVelocity = function() {
       this.vx = -12;
-      this.vy = utils.randomNumber(-18,-10);
+      this.vy = utils.randomNumber(-18,-14);
     };
 
     this.getBounds = function() {

@@ -331,7 +331,6 @@
       // Check collisions with pakias
       pakias.forEach(function(pakia, pakia_index) {
         var pakia_bound = pakia.getBounds();
-
         var pakia_dead = false;
 
         self.clones.forEach(function(clone) {
@@ -341,18 +340,20 @@
 
           var clone_bound = clone.getBounds();
 
-          if (utils.intersect(pakia_bound, clone_bound)) {
-            // mit.PakiaUtils.cur_pakia = false;
-            mit.audio.loadHit.play();
-            pakia_dead = mit.PakiaUtils.died(mit.PakiaUtils.cur_pakia);
+          if(!mit.PakiaUtils.cur_pakia.isDead && (mit.PakiaUtils.cur_pakia.h/2 + mit.PakiaUtils.cur_pakia.y < H)) {
+            if (utils.intersect(pakia_bound, clone_bound)) {
+              // mit.PakiaUtils.cur_pakia = false;
+              mit.audio.loadHit.play();
+              pakia_dead = mit.PakiaUtils.died(mit.PakiaUtils.cur_pakia);
 
-            if(!mit.PakiaUtils.cur_pakia.has_stuck) {
-              mit.bonus = 100;
-              mit.score += 100;
+              if(!mit.PakiaUtils.cur_pakia.has_stuck) {
+                mit.bonus = 100;
+                mit.score += 100;
+              }
+
+              mit.PakiaUtils.cur_pakia.has_stuck = 1;
+
             }
-
-            mit.PakiaUtils.cur_pakia.has_stuck = 1;
-
           }
 
           return;

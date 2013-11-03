@@ -3,6 +3,38 @@
   // Game screen will contain a pause button
   // and current score
 
+
+  // Bonus thingy
+  var scoreBonus = function(ctx, bonus) {
+    this.x = W/2;
+    this.y = H/2;
+    this.opacity = 1;
+    this.bonus = bonus;
+
+    this.draw = function(ctx) {
+        ctx.save();
+
+        ctx.font = '48px Happy Sans';
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+
+        if(this.bonus < -1) {
+          ctx.fillStyle = 'rgba(156, 0, 0, ' + this.opacity + ')';
+          ctx.fillText(this.bonus, this.x, this.y);
+        }
+        else if(this.bonus > 1) {
+          ctx.fillStyle = 'rgba(0, 156, 0, ' + this.opacity + ')';
+          ctx.fillText("+" + this.bonus, this.x, this.y);
+        }
+        ctx.restore();
+
+        this.y -= 4;
+        this.opacity -= 0.02;
+
+        mit.bonus = false;
+    }
+  }
+
   elem.game_screen = {
     isVisible: false,
 
@@ -28,13 +60,16 @@
       h: 40,
 
       draw: function(ctx) {
-        ctx.save();
-        ctx.textBaseline = 'top';
-        ctx.font = "48px Happy Sans";
-        ctx.fillStyle = 'white';
-        ctx.fillText("Pause", this.x, this.y);
-        ctx.restore();
-        // console.log('yadda');
+
+        if(!mit.isPaused) {
+          ctx.save();
+          ctx.textBaseline = 'top';
+          ctx.font = "48px Happy Sans";
+          ctx.fillStyle = 'white';
+          ctx.fillText("Pause", this.x, this.y);
+          ctx.restore();
+          // console.log('yadda');
+        }
       },
 
       tap: function(tx, ty) {
@@ -83,6 +118,7 @@
       }
     },
 
+    /*
     scoreBonus: {
       opacity: 1,
       x: W/2,
@@ -117,20 +153,32 @@
         }
       }
     },
+    */
 
-    draw: function(ctx, score, bonus) {
+    bonuses: [],
+
+    draw: function(ctx, score, bonusInt) {
       if(mit.start_btn_clicked) {
         this.pauseBtn.draw(ctx);
         this.scoreText.draw(ctx, score);
 
-        this.scoreBonus.draw(ctx, bonus)
+        // this.scoreBonus.draw(ctx, bonus)
+        if(bonusInt) {
+          this.bonuses.push(new scoreBonus(ctx, bonusInt));
+        }
+
+        if(this.bonuses.length) {
+          this.bonuses.forEach(function(bonus, ind) {
+            bonus.draw(ctx);
+
+            if(bonus.opacity < 0)
+              elem.game_screen.bonuses.splice(ind, 1);
+          });
+        }
 
         if(!mit.game_started)
           this.instruction.draw(ctx);
       }
     }
   };
-
-
-
 }());

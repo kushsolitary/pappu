@@ -37,12 +37,7 @@ mit.main = function() {
 
   // Responsive fonts!
   // CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
-
-  var canvas = CocoonJS.App.createScreenCanvas();
-  var ctx = canvas.getContext('2d');
-
-  W = canvas.width = 1136;
-  H = canvas.height = 640;
+  mit.W = W; mit.H = H;
 
   mit.music = mit.audio.loadMusic;
   mit.music.loop = true;
@@ -206,24 +201,64 @@ mit.main = function() {
       var percent_x = (x/window.innerWidth) * 100;
       var percent_y = (y/window.innerHeight) * 100;
 
-      x = percent_x * 1136/100;
-      y = percent_y * 640/100;
+      x = percent_x * mit.W/100;
+      y = percent_y * mit.H/100;
 
       // console.log(x, y);
 
       // Pause button clicked
-      if(elem.game_screen.pauseBtn.tap(x, y)) {
-        // Show pause menu
-        if(!elem.pause_screen.isVisible) {
+      if(!elem.pause_screen.isVisible && !mit.isPaused) {
+        if(elem.game_screen.pauseBtn.tap(x, y)) {
+          // Show pause menu
           mit.music.pause();
+          elem.pause_screen.isVisible = true;
           mit.isPaused = true;
         }
-        else {
-          mit.music.play();
-          mit.isPaused = false;
-          elem.pause_screen.remove(ctx);
-          CocoonJS.App.resume();
-        }
+      }
+
+      // Resume button clicked
+      if(elem.pause_screen.resumeButton.tap(x, y)) {
+        // Show pause menu
+        mit.music.play();
+        CocoonJS.App.resume();
+        elem.pause_screen.isVisible = false;
+        mit.isPaused = false;
+      }
+
+      // Click retry
+      if(elem.pause_screen.retryButton.tap(x, y)) {
+        // console.log(mit.level);
+
+        mit.gameOver();
+        elem.gameover_screen.isVisible = false;
+
+        mit.music.play();
+
+        CocoonJS.App.resume();
+        mit.isPaused = false;
+
+        elem.pause_screen.isVisible = false;
+        mit.startGame();
+        elem.game_screen.instruction.draw(ctx);
+      }
+
+      // Click Main Menu
+      if(elem.pause_screen.mainmenuButton.tap(x, y)) {
+        mit.music.play();
+        CocoonJS.App.resume();
+        mit.isPaused = false;
+
+        elem.game_screen.isVisible = false;
+        elem.pause_screen.isVisible = false;
+
+        // Weird double tap bugfix
+        setTimeout(function() {elem.main_menu.isVisible = true;}, 1);
+
+        mit.game_over = 1;
+        mit.start_btn_clicked = 0;
+        mit.stopMotion();
+
+        // elem.gameover_screen.isVisible = false;
       }
 
       // Start button clicked
@@ -231,19 +266,24 @@ mit.main = function() {
         if(elem.main_menu.startButton.tap(x, y)) {
           // Show level select screen
           elem.main_menu.isVisible = false;
-          elem.level_selection_screen.isVisible = true;
+
+          // Weird double tap bugfix
+          setTimeout(function() {elem.level_selection_screen.isVisible = true;}, 1);
         }
       }
 
       // Clicked on a level
-      if(
-        elem.level_selection_screen.optOne.tap(x, y) || 
-        elem.level_selection_screen.optTwo.tap(x, y) ||
-        elem.level_selection_screen.optThree.tap(x, y) 
-      ) {
-        elem.level_selection_screen.isVisible = false;
-        mit.startGame();
-        elem.game_screen.instruction.draw(ctx);
+      if(elem.level_selection_screen.isVisible && !elem.main_menu.isVisible) {
+        if(
+          elem.level_selection_screen.optOne.tap(x, y) || 
+          elem.level_selection_screen.optTwo.tap(x, y) ||
+          elem.level_selection_screen.optThree.tap(x, y) 
+        ) {
+          // console.log("I am clicked!");
+          elem.level_selection_screen.isVisible = false;
+          mit.startGame();
+          elem.game_screen.instruction.draw(ctx);
+        }
       }
 
       // Credit button clicked
@@ -285,7 +325,6 @@ mit.main = function() {
         mit.startGame();
         elem.game_screen.instruction.draw(ctx);
       }
-
 
       // Click Main Menu
       if(elem.gameover_screen.mainmenuButton.tap(x, y)) {
