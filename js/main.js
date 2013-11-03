@@ -258,6 +258,8 @@ mit.main = function() {
         mit.start_btn_clicked = 0;
         mit.stopMotion();
 
+        mit.Pappu.drawStatic(ctx);
+        mit.game_started = 0;
         // elem.gameover_screen.isVisible = false;
       }
 
@@ -412,23 +414,6 @@ mit.main = function() {
     ctx.clearRect(0, 0, W, H);
     mit.Backgrounds.draw(ctx);
 
-    // Pause the game 
-    if (mit.isPaused) {
-      elem.pause_screen.draw(ctx);
-      CocoonJS.App.pause();
-    }
-
-
-    // Show the main menu
-    elem.main_menu.draw(ctx, mit.highScore);
-    elem.level_selection_screen.draw(ctx);
-
-    if(elem.main_menu.isHelpActive)
-      elem.main_menu.showHelp(ctx);
-
-    if(elem.main_menu.isCreditsActive)
-      elem.main_menu.showCredits(ctx);
-
     // Draw Digs (holds forks)
     // I am fine without Digs, but Kushagra
     // just WANTS me to do this extra work :/
@@ -445,7 +430,6 @@ mit.main = function() {
     // Show the game over screen
     if(elem.gameover_screen.isVisible)
       elem.gameover_screen.draw(ctx, parseInt(mit.score), mit.highScore);
-
 
     // Game over on reaching any boundary
     if (mit.Pappu.hasReachedBoundary(W, H)) {
@@ -468,7 +452,6 @@ mit.main = function() {
     // mit.CollectibleUtils.draw(ctx);
 
     // mit.Pappu.createClones(3);
-    elem.game_screen.draw(ctx, parseInt(mit.score), mit.bonus);
 
     if (mit.game_started) {
 
@@ -536,6 +519,25 @@ mit.main = function() {
       mit.Pappu.drawStatic(ctx);
     }
 
+    // Pause the game 
+    if (mit.isPaused) {
+      elem.pause_screen.draw(ctx);
+      CocoonJS.App.pause();
+    }
+
+    elem.game_screen.draw(ctx, parseInt(mit.score), mit.bonus);
+
+    // Show the main menu
+    elem.main_menu.draw(ctx, mit.highScore);
+    elem.level_selection_screen.draw(ctx);
+
+    if(elem.main_menu.isHelpActive)
+      elem.main_menu.showHelp(ctx);
+
+    if(elem.main_menu.isCreditsActive)
+      elem.main_menu.showCredits(ctx);
+
+  
     /*
     // Calculate FPS
     mit.cur_time = new Date;

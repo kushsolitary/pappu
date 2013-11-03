@@ -107,13 +107,13 @@
     },
 
     invinceBar: {
-      w: 70,
+      w: 65,
       h: 10,
 
       draw: function(ctx, x, y, percent) {
         ctx.save();
         ctx.fillStyle = 'white';
-        ctx.fillRect(x, y + 60, this.w * percent / 100, this.h);
+        ctx.fillRect(x + (this.w/2) - (this.w * percent / 200), y - 20, this.w * percent / 100, this.h);
         ctx.restore();
       }
     },

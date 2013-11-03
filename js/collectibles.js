@@ -290,8 +290,9 @@
               mit.Pappu.invincibility_time = 5000 + prev_remaining_time;
             }*/
 
-            mit.Pappu.invincibility_start = new Date().getTime();
-            mit.Pappu.invincibility_time = 5000;
+            // mit.Pappu.invincibility_start = new Date().getTime();
+            mit.Pappu.invincibility_start = 0;
+            mit.Pappu.invincibility_time = 300;
 
             // Show timer
             CocoonJS.App.forward("ui.invincible_timer.show();");
