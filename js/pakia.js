@@ -228,7 +228,7 @@
 
               if (!this.cur_pakia.has_stuck) {
                 mit.audio.loadHit.play();
-                mit.vy += 20;
+                mit.vy = 20;
                 this.cur_pakia.y += 20;
                 this.cur_pakia.vx = 0;
 

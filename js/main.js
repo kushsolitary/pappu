@@ -189,8 +189,6 @@ mit.main = function() {
   }, false);
 
   window.addEventListener('touchend', function(e) {
-    mit.descend();
-
     // Check if buttons are pressed and show respective screens / perform actions
     for(var i = 0; i < e.changedTouches.length; i++) {
       var t = e.changedTouches[i];
@@ -205,16 +203,6 @@ mit.main = function() {
       y = percent_y * mit.H/100;
 
       // console.log(x, y);
-
-      // Pause button clicked
-      if(!elem.pause_screen.isVisible && !mit.isPaused) {
-        if(elem.game_screen.pauseBtn.tap(x, y)) {
-          // Show pause menu
-          mit.music.pause();
-          elem.pause_screen.isVisible = true;
-          mit.isPaused = true;
-        }
-      }
 
       // Resume button clicked
       if(elem.pause_screen.resumeButton.tap(x, y)) {
@@ -242,38 +230,6 @@ mit.main = function() {
         elem.game_screen.instruction.draw(ctx);
       }
 
-      // Click Main Menu
-      if(elem.pause_screen.mainmenuButton.tap(x, y)) {
-        mit.music.play();
-        CocoonJS.App.resume();
-        mit.isPaused = false;
-
-        elem.game_screen.isVisible = false;
-        elem.pause_screen.isVisible = false;
-
-        // Weird double tap bugfix
-        setTimeout(function() {elem.main_menu.isVisible = true;}, 1);
-
-        mit.game_over = 1;
-        mit.start_btn_clicked = 0;
-        mit.stopMotion();
-
-        mit.Pappu.drawStatic(ctx);
-        mit.game_started = 0;
-        // elem.gameover_screen.isVisible = false;
-      }
-
-      // Start button clicked
-      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
-        if(elem.main_menu.startButton.tap(x, y)) {
-          // Show level select screen
-          elem.main_menu.isVisible = false;
-
-          // Weird double tap bugfix
-          setTimeout(function() {elem.level_selection_screen.isVisible = true;}, 1);
-        }
-      }
-
       // Clicked on a level
       if(elem.level_selection_screen.isVisible && !elem.main_menu.isVisible) {
         if(
@@ -285,6 +241,16 @@ mit.main = function() {
           elem.level_selection_screen.isVisible = false;
           mit.startGame();
           elem.game_screen.instruction.draw(ctx);
+        }
+      }
+
+      // Start button clicked
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.startButton.tap(x, y)) {
+          // Show level select screen
+          elem.main_menu.isVisible = false;
+
+          elem.level_selection_screen.isVisible = true;
         }
       }
 
@@ -312,6 +278,39 @@ mit.main = function() {
         }
       }
 
+      // Click Main Menu
+      if(elem.pause_screen.mainmenuButton.tap(x, y)) {
+        mit.music.play();
+        CocoonJS.App.resume();
+        mit.isPaused = false;
+
+        elem.game_screen.isVisible = false;
+        elem.pause_screen.isVisible = false;
+
+        // Weird double tap bugfix
+        elem.main_menu.isVisible = true;
+
+        mit.game_over = 1;
+        mit.start_btn_clicked = 0;
+        mit.stopMotion();
+
+        mit.Pappu.drawStatic(ctx);
+        mit.game_started = 0;
+        // elem.gameover_screen.isVisible = false;
+      }
+
+      // Pause button clicked
+      if(!elem.pause_screen.isVisible && !mit.isPaused) {
+        if(elem.game_screen.pauseBtn.tap(x, y)) {
+          // Show pause menu
+          mit.music.pause();
+          elem.pause_screen.isVisible = true;
+          mit.isPaused = true;
+
+          return;
+        }
+      }
+      
       // Back is clicked in level selection screen
       if(elem.level_selection_screen.backButton.tap(x, y)) {        
         elem.main_menu.isVisible = true;
@@ -337,6 +336,10 @@ mit.main = function() {
         mit.game_started = 0;
       }
     }
+
+    // Make pappu fall!
+    mit.descend();
+
 
   }, false);
 
@@ -410,6 +413,14 @@ mit.main = function() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
+
+  
+    // Pause the game 
+    if (mit.isPaused) {
+      elem.pause_screen.draw(ctx);
+      CocoonJS.App.pause();
+      return;
+    }
 
     ctx.clearRect(0, 0, W, H);
     mit.Backgrounds.draw(ctx);
@@ -519,12 +530,6 @@ mit.main = function() {
       mit.Pappu.drawStatic(ctx);
     }
 
-    // Pause the game 
-    if (mit.isPaused) {
-      elem.pause_screen.draw(ctx);
-      CocoonJS.App.pause();
-    }
-
     elem.game_screen.draw(ctx, parseInt(mit.score), mit.bonus);
 
     // Show the main menu
@@ -537,7 +542,7 @@ mit.main = function() {
     if(elem.main_menu.isCreditsActive)
       elem.main_menu.showCredits(ctx);
 
-  
+
     /*
     // Calculate FPS
     mit.cur_time = new Date;

@@ -208,7 +208,7 @@
       // Crossed Sides ?
       // `c` stands for crossed
 
-      var ctop = (this.y < 0 - this.h);
+      var ctop = (this.y < 0);
       var cbtm = (this.y > mit.H);
       var cleft = (this.x < 0);
       var crgt = (this.x + this.w > mit.W);
@@ -216,7 +216,14 @@
       // console.log(ctop, cbtm, cleft, crgt);
 
       // return true if crossed any sides
-      if (ctop || cbtm || cleft || crgt) {
+
+      if(ctop) {
+        mit.audio.loadHit.play();
+        mit.stopMotion();
+        return false;
+      }
+
+      if (cbtm || cleft || crgt) {
         return true;
       }
 
