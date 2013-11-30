@@ -426,8 +426,6 @@ mit.main = function() {
     mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
-    // I am fine without Digs, but Kushagra
-    // just WANTS me to do this extra work :/
     // mit.ForkUtils.drawDigs(ctx);
 
     // Draw Grass on Main Canvas
@@ -484,7 +482,7 @@ mit.main = function() {
       mit.Pappu.checkCloneCollision();
 
       // Send over Pakias (Enemies)
-      if (mit.score > 199)
+      if (mit.score > 0)
         mit.PakiaUtils.render(ctx);
 
       // Update score
@@ -519,7 +517,7 @@ mit.main = function() {
         }
       }
       else {
-        // on game over, he's gravity is unstoppable
+        // on game over, his gravity is unstoppable
         mit.vy += mit.gravity;
         mit.Pappu.y += mit.vy;
       }

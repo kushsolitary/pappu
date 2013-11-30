@@ -134,7 +134,6 @@
 
         case 100:
           // Red (third)
-          // Pink (second)
           return {x: 60, y: 0};
 
         case 1000:

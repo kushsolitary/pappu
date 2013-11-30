@@ -10,7 +10,7 @@
 
     // Title
     title: {
-      text: 'Pappu Pakia',
+      text: "Pappu Pakia",
       x: W/2,
       y: 90,
 
@@ -219,7 +219,7 @@
       ctx.textBaseline = 'middle';
       ctx.fillText("Hold the screen to fly up and release to fall down.", W/2, H/2 - 80);
       ctx.fillText("Use power ups and coins to get more points!", W/2, H/2 - 24);
-      ctx.fillText("Avoid Pakias as they might pull, push or kill you!", W/2, H/2 + 60);
+      ctx.fillText("Avoid enemies as they might pull, push or kill you!", W/2, H/2 + 60);
       ctx.restore();
 
       this.backButton.draw(ctx);
@@ -232,7 +232,7 @@
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
       ctx.fillText("Handsomly coded and beautifully designed by", W/2, H/2 - 80);
-      ctx.fillText("Kushagra, Ekta, Ankish and Sohit.", W/2, H/2 - 24);
+      ctx.fillText("Rishabh (@rishabhp) and Kushagra (@kushsolitary)", W/2, H/2 - 24);
       ctx.fillText("Thanks to Rezoner (@rezoner) for the music!", W/2, H/2 + 60);
       ctx.restore();
 

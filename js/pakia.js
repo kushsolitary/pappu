@@ -228,8 +228,8 @@
 
               if (!this.cur_pakia.has_stuck) {
                 mit.audio.loadHit.play();
-                mit.vy = 20;
-                this.cur_pakia.y += 20;
+                mit.vy = 10;
+                this.cur_pakia.vy = 10;
                 this.cur_pakia.vx = 0;
 
                 mit.bonus = (mit.score - 100 > 199) ? -100 : - parseInt(mit.score - 200);

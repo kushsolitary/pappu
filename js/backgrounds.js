@@ -31,7 +31,7 @@
 
     init: function(ctx) {
       // Sky Gradient
-      this.sky_gradient = ctx.createLinearGradient(0, 0, 0, mit.H);  
+      this.sky_gradient = ctx.createLinearGradient(0, 0, mit.W, mit.H);  
       this.sky_gradient.addColorStop(0, '#06c4f4');
       this.sky_gradient.addColorStop(1, '#7bd4f6');
 
