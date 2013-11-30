@@ -29,53 +29,28 @@ mit.main = function() {
 
   };
 
-  var ui = mit.ui = {
-    body: $('body'),
-    score_board: $('#score_board'),
-    last_score: $('#last_score'),
-    high_score: $('#high_score'),
-    start_screen: $('#start_screen'),
-    start_game: $('#start_game'),
-    tweet: $('#tweet'),
-    fb: $('#fb'),
-    fps_count: $('#fps_count'),
-    invincible_timer: $('#invincible_timer'),
-    invincible_loader: $('#invincible_loader')
-  };
-
   /*
   Basic Canvas Inits
   */
 
   // Main Canvas
 
-  var canvas = document.querySelector('#game_main');
-  var ctx = canvas.getContext('2d');
+  // Responsive fonts!
+  // CocoonJS.App.forward("$('html').css('font-size', (100/scale) + '%');");
+  mit.W = W; mit.H = H;
 
-  var W = canvas.width = 1000;
-  var H = canvas.height = 500;
-
-  var music = document.getElementById("start");
-  music.volume = 0.2;
+  mit.music = mit.audio.loadMusic;
+  mit.music.loop = true;
+  var flap = mit.audio.loadFlap;
+  mit.music.volume = 0.2;
   
-  var isMute = false;
+  mit.isMute = false;
+  mit.isPaused = false;
+  mit.highScore = 0;
+  mit.bonus = false;
 
-  // Mute the game if button is clicked
-  $("#mute").click(function() {
-    if(isMute == false) {
-      $(this).css("backgroundPosition", "0px -40px");
-      music.volume = 0;
-      isMute = true;
-    }
+  mit.music.play();
 
-    else {
-      $(this).css("backgroundPosition", "0px 0px");
-      music.volume = 0.2;
-      isMute = false;
-    }
-
-    return false;
-  });
 
   /*
     Game Start Screen and Lolz
@@ -84,17 +59,19 @@ mit.main = function() {
   mit.game_over = 0;
   mit.start_btn_clicked = 0;
 
-  ui.start_screen.css('width', canvas.width + 'px');
-  ui.start_screen.css('height', canvas.height + 'px');
 
   // Start Button
-  var startGame = function() {
+  mit.startGame = function() {
     // Play the awesome music! Really awesome
-    music.play();
+    elem.game_screen.isVisible = true;
+
     flap.pause();
 
-    // Hide the Start Screen
-    ui.start_screen.fadeOut();
+    /*
+    mit.music.addEventListener('ended', function() {
+      mit.music.play();
+    }, false);
+    */
 
     // Start btn has been clicked
     // Game hasnt started. Game will
@@ -102,7 +79,7 @@ mit.main = function() {
     mit.start_btn_clicked = 1;
     mit.game_started = 0;
 
-    mit.Backgrounds.common_bg_speed = 1;
+    mit.Backgrounds.common_bg_speed = (mit.level > 0) ? ((mit.level == 1) ? 1.2 : 1.4) : 1;
     mit.Backgrounds.resetAllSpeed();
 
     // Reset all accelerations and make
@@ -128,57 +105,51 @@ mit.main = function() {
     // Nuke all pakias and cur_pakia
     mit.PakiaUtils.pakias = [];
     mit.PakiaUtils.cur_pakia = false;
+
+    mit.Pappu.is_dead = false;
+
+    // Velocity cap on either sides of the
+    // number system.
+    // 
+    // You can console.log velocities in drawing methods
+    // and from there decide what to set as the cap.
+    mit.v_cap = (mit.level > 0) ? ((mit.level == 1) ? 11 : 12) : 10;
   };
 
-  ui.start_game.on('mousedown', function() {
-    startGame();
+/*
+  document.addEventListener('touchstart', function() {
+    if (!mit.game_started)    
+      startGame();
 
     return false;
-  });
-
+  }, false);
+*/
 
 
   // startGame();
-
-  // Share links
-  var tweet = document.getElementById("tweet");
-  tweet.href='http://twitter.com/share?url=http://khele.in/pappu-pakia/&text=I am playing Pappu Pakia, a cute HTML5 game on khele.in!&count=horiztonal&via=_rishabhp&related=solitarydesigns';
-
-  var facebook = document.getElementById("fb");
-  facebook.href='http://facebook.com/sharer.php?s=100&p[url]=http://khele.in/pappu-pakia/&p[title]=I am playing Pappu Pakia, a cute HTML5 game on khele.in!';
-
-
   // Score Board
   mit.score = 0;
-  try {
 
+  if(localStorage.getItem("highScore")) {
     mit.highScore = JSON.parse(localStorage.getItem("highScore"));
-    if (mit.highScore)
-      ui.high_score.text("High Score: "+ mit.highScore);
-
-  } catch (e) {}
-
-  ui.score_board.css('width', canvas.width + 'px');
-  ui.score_board.css('height', canvas.height + 'px');
-
+    // if (mit.highScore)
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
+    // else
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
+  }
+  // else
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + 0 + ');});');
 
   // Set Canvas Width/Height in Config
   mit.config.canvas_width = mit.W = W;
   mit.config.canvas_height = mit.H = H;
 
   // Gravity
-  mit.gravity = 0.7;
+  mit.gravity = 0.8;
 
   // Velocity x,y
   mit.vx = 0;
   mit.vy = 0;
-
-  // Velocity cap on either sides of the
-  // number system.
-  // 
-  // You can console.log velocities in drawing methods
-  // and from there decide what to set as the cap.
-  mit.v_cap = 6.5;
 
   // Accelaration x,y
   mit.ax = 0;
@@ -196,8 +167,10 @@ mit.main = function() {
       mit.game_over = 0;
     }
 
-    mit.ay = -1.5;
-    mit.flying_up = 1;
+    if(!mit.Pappu.is_dead) {
+      mit.ay = -1.5;
+      mit.flying_up = 1;
+    }
   };
 
   mit.descend = function() {
@@ -208,90 +181,209 @@ mit.main = function() {
     mit.flying_up = 0;
   };
 
-  // Game play on mouse clicks too!
-  window.addEventListener('mousedown', function(e) {
-    mit.ascend();
-  }, false);
-
-  window.addEventListener('mouseup', function(e) {
-    mit.descend();
-  }, false);
-
 
   // Game play on touch too!
   window.addEventListener('touchstart', function(e) {
     mit.ascend();
+
   }, false);
 
   window.addEventListener('touchend', function(e) {
-    mit.descend();
-  }, false);
+    // Check if buttons are pressed and show respective screens / perform actions
+    for(var i = 0; i < e.changedTouches.length; i++) {
+      var t = e.changedTouches[i];
+      var x = t.pageX;
+      var y = t.pageY;
 
+      // Convert the position to original (1136x640) if scaled
+      var percent_x = (x/window.innerWidth) * 100;
+      var percent_y = (y/window.innerHeight) * 100;
 
-  // ... and keyzz...
-  window.addEventListener('keydown', function(e) {
+      x = percent_x * mit.W/100;
+      y = percent_y * mit.H/100;
 
-    // Up
-    if (e.keyCode === 38) {
-      mit.ascend();
+      // console.log(x, y);
 
-      e.preventDefault();
-    }
-    // Down
-    if (e.keyCode === 40) {
-      e.preventDefault();
-    }
+      // Resume button clicked
+      if(elem.pause_screen.resumeButton.tap(x, y)) {
+        // Show pause menu
+        mit.music.play();
+        CocoonJS.App.resume();
+        elem.pause_screen.isVisible = false;
+        mit.isPaused = false;
+      }
 
-    // Space || Enter
-    if (e.keyCode === 32 || e.keyCode === 13) {
-      startGame();
+      // Click retry
+      if(elem.pause_screen.retryButton.tap(x, y)) {
+        // console.log(mit.level);
+
+        mit.gameOver();
+        elem.gameover_screen.isVisible = false;
+
+        mit.music.play();
+
+        CocoonJS.App.resume();
+        mit.isPaused = false;
+
+        elem.pause_screen.isVisible = false;
+        mit.startGame();
+        elem.game_screen.instruction.draw(ctx);
+      }
+
+      // Clicked on a level
+      if(elem.level_selection_screen.isVisible && !elem.main_menu.isVisible) {
+        if(
+          elem.level_selection_screen.optOne.tap(x, y) || 
+          elem.level_selection_screen.optTwo.tap(x, y) ||
+          elem.level_selection_screen.optThree.tap(x, y) 
+        ) {
+          // console.log("I am clicked!");
+          elem.level_selection_screen.isVisible = false;
+          mit.startGame();
+          elem.game_screen.instruction.draw(ctx);
+        }
+      }
+
+      // Start button clicked
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.startButton.tap(x, y)) {
+          // Show level select screen
+          elem.main_menu.isVisible = false;
+
+          elem.level_selection_screen.isVisible = true;
+        }
+      }
+
+      // Credit button clicked
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.creditsButton.tap(x, y)) {
+          elem.main_menu.isCreditsActive = true;
+        }
+      }
+
+      // Help button clicked
+      if(!elem.main_menu.isCreditsActive && !elem.main_menu.isHelpActive) {
+        if(elem.main_menu.helpButton.tap(x, y)) {
+          elem.main_menu.isHelpActive = true;
+        }
+      }
+
+      // Back is clicked in main menu
+      if(elem.main_menu.isCreditsActive || elem.main_menu.isHelpActive) {
+        if(elem.main_menu.backButton.tap(x, y)) {        
+          if(elem.main_menu.isHelpActive || elem.main_menu.isCreditsActive) {
+            elem.main_menu.isHelpActive = false;
+            elem.main_menu.isCreditsActive = false;
+          }
+        }
+      }
+
+      // Click Main Menu
+      if(elem.pause_screen.mainmenuButton.tap(x, y)) {
+        mit.music.play();
+        CocoonJS.App.resume();
+        mit.isPaused = false;
+
+        elem.game_screen.isVisible = false;
+        elem.pause_screen.isVisible = false;
+
+        // Weird double tap bugfix
+        elem.main_menu.isVisible = true;
+
+        mit.game_over = 1;
+        mit.start_btn_clicked = 0;
+        mit.stopMotion();
+
+        mit.Pappu.drawStatic(ctx);
+        mit.game_started = 0;
+        // elem.gameover_screen.isVisible = false;
+      }
+
+      // Pause button clicked
+      if(!elem.pause_screen.isVisible && !mit.isPaused) {
+        if(elem.game_screen.pauseBtn.tap(x, y)) {
+          // Show pause menu
+          mit.music.pause();
+          elem.pause_screen.isVisible = true;
+          mit.isPaused = true;
+
+          return;
+        }
+      }
       
-      e.preventDefault();
+      // Back is clicked in level selection screen
+      if(elem.level_selection_screen.backButton.tap(x, y)) {        
+        elem.main_menu.isVisible = true;
+        elem.level_selection_screen.isVisible = false;
+      }
+
+
+      // Click retry
+      if(elem.gameover_screen.retryButton.tap(x, y)) {
+        // console.log(mit.level);
+
+        elem.gameover_screen.isVisible = false;
+        mit.startGame();
+        elem.game_screen.instruction.draw(ctx);
+      }
+
+      // Click Main Menu
+      if(elem.gameover_screen.mainmenuButton.tap(x, y)) {
+        elem.gameover_screen.isVisible = false;
+        elem.main_menu.isVisible = true;
+
+        mit.Pappu.drawStatic(ctx);
+        mit.game_started = 0;
+      }
     }
+
+    // Make pappu fall!
+    mit.descend();
+
 
   }, false);
 
-  window.addEventListener('keyup', function(e) {
 
-    if (e.keyCode === 38) {
-      mit.descend();
-
-      e.preventDefault();
-    }
-  }, false);
 
 
   /*
     Performing some game over tasks
   */
   mit.gameOver = function() {
-    ui.start_screen.fadeIn();
 
+    elem.game_screen.isVisible = false;
+    
     // High Score
     if (mit.score > mit.highScore) {
       mit.highScore = parseInt(mit.score);
       localStorage.setItem("highScore", JSON.stringify(parseInt(mit.score)));
 
-      ui.high_score.text("High Score: "+ mit.highScore);
+      // CocoonJS.App.forward('ui.high_score.each(function() {$(this).text("High Score: "+ ' + mit.highScore + ');});');
+
     }
 
-    // Show last_score
-    ui.last_score.text("Last Score: " + parseInt(mit.score));
-
-
-    ui.start_game.html('re-start');
-    ui.tweet.html('tweet score');
-    ui.fb.html('post on fb');
-
-    mit.descend();
+    // mit.descend();
 
     // Stop background
-    mit.Backgrounds.common_bg_speed = 0;
-    mit.Backgrounds.ground_bg_move_speed = 0;
-    mit.Backgrounds.fps = 0;
+    mit.stopMotion();
 
     mit.game_over = 1;
     mit.start_btn_clicked = 0;
+
+
+    // CocoonJS.App.forward("changeURL();");
+
+    // CocoonJS.App.forward("showGOScreen();");
+    elem.gameover_screen.isVisible = true;
+  };
+
+  mit.stopMotion = function() {
+    // Stop background
+    mit.descend();
+
+    mit.Backgrounds.common_bg_speed = 0;
+    mit.Backgrounds.ground_bg_move_speed = 0;
+    mit.Backgrounds.fps = 0;
 
     // Pappu if invincible will be no morez
     mit.Pappu.undoInvincible();
@@ -299,19 +391,12 @@ mit.main = function() {
     // Nuke all clones
     mit.Pappu.clones.length = 0;
 
-    // Share
-    var tweet = document.getElementById("tweet");
-    tweet.href='http://twitter.com/share?url=http://khele.in/pappu-pakia/&text=I just scored ' +Math.floor(mit.score)+ ' points in Pappu Pakia!&count=horiztonal&via=_rishabhp&related=solitarydesigns';
-  
-    var facebook = document.getElementById("fb");
-    facebook.href='http://facebook.com/sharer.php?s=100&p[url]=http://khele.in/pappu-pakia/&p[title]=I just scored ' +Math.floor(mit.score)+ ' points in the Pappu Pakia!';
-
-  };
+    mit.Pappu.is_dead = true;
+    mit.v_cap = 100;
+  }
 
   mit.last_time = new Date();
-  setInterval(function() {
-    mit.ui.fps_count.html(mit.fps.toFixed(0) + ' FPS');
-  }, 1000);
+
 
 
   // Initializations
@@ -322,18 +407,25 @@ mit.main = function() {
   mit.Pappu.init();
   mit.PakiaUtils.init();
 
+  elem.main_menu.isVisible = true;
 
   (function renderGame() {
     window.requestAnimationFrame(renderGame);
 
     // Draw Backgrounds on BG Canvas
 
+  
+    // Pause the game 
+    if (mit.isPaused) {
+      elem.pause_screen.draw(ctx);
+      CocoonJS.App.pause();
+      return;
+    }
+
     ctx.clearRect(0, 0, W, H);
     mit.Backgrounds.draw(ctx);
 
     // Draw Digs (holds forks)
-    // I am fine without Digs, but Kushagra
-    // just WANTS me to do this extra work :/
     // mit.ForkUtils.drawDigs(ctx);
 
     // Draw Grass on Main Canvas
@@ -344,6 +436,9 @@ mit.main = function() {
     else
       mit.Pappu.updateFlyFrameCount(0);
 
+    // Show the game over screen
+    if(elem.gameover_screen.isVisible)
+      elem.gameover_screen.draw(ctx, parseInt(mit.score), mit.highScore);
 
     // Game over on reaching any boundary
     if (mit.Pappu.hasReachedBoundary(W, H)) {
@@ -354,7 +449,6 @@ mit.main = function() {
       mit.gameOver();
       return;
     }
-
     //mit.ForkUtils.draw(ctx);
     //mit.BranchUtils.draw(ctx);
 
@@ -380,20 +474,23 @@ mit.main = function() {
       if (!mit.Pappu.invincible) {
         mit.ForkUtils.checkCollision();
         mit.BranchUtils.checkCollision();
-        mit.PakiaUtils.checkCollision();
       }
+
+      mit.PakiaUtils.checkCollision(ctx);
+
       mit.CollectibleUtils.checkCollision();
       mit.Pappu.checkCloneCollision();
 
       // Send over Pakias (Enemies)
-      if (mit.score > 199)
+      if (mit.score > 0)
         mit.PakiaUtils.render(ctx);
 
       // Update score
       if (!mit.game_over) {
         mit.score = mit.score += 0.1;
-        ui.score_board.text(parseInt(mit.score));
       }
+
+      // CocoonJS.App.forward("ui.score_board.text(" + parseInt(mit.score) + ");");
 
       // Acceleration + Gravity
       // mit.ay = mit.ay + mit.gravity;
@@ -420,7 +517,7 @@ mit.main = function() {
         }
       }
       else {
-        // on game over, he's gravity is unstoppable
+        // on game over, his gravity is unstoppable
         mit.vy += mit.gravity;
         mit.Pappu.y += mit.vy;
       }
@@ -431,10 +528,25 @@ mit.main = function() {
       mit.Pappu.drawStatic(ctx);
     }
 
+    elem.game_screen.draw(ctx, parseInt(mit.score), mit.bonus);
+
+    // Show the main menu
+    elem.main_menu.draw(ctx, mit.highScore);
+    elem.level_selection_screen.draw(ctx);
+
+    if(elem.main_menu.isHelpActive)
+      elem.main_menu.showHelp(ctx);
+
+    if(elem.main_menu.isCreditsActive)
+      elem.main_menu.showCredits(ctx);
+
+
+    /*
     // Calculate FPS
     mit.cur_time = new Date;
     mit.fps = 1e3 / (mit.cur_time - mit.last_time);
     mit.last_time = mit.cur_time;
+    */
 
     return;
   }());

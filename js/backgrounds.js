@@ -31,7 +31,7 @@
 
     init: function(ctx) {
       // Sky Gradient
-      this.sky_gradient = ctx.createLinearGradient(0, 0, 0, mit.H);  
+      this.sky_gradient = ctx.createLinearGradient(0, 0, mit.W, mit.H);  
       this.sky_gradient.addColorStop(0, '#06c4f4');
       this.sky_gradient.addColorStop(1, '#7bd4f6');
 
@@ -42,7 +42,7 @@
       this.cloud_img = mit.image.clouds;
 
       this.cloud_img.width = mit.W;
-      this.cloud_img.height = mit.H;
+      this.cloud_img.height = 500;
 
 
       // Back Trees
@@ -51,7 +51,7 @@
       this.backtree_img = mit.image.backtrees;
 
       this.backtree_img.width = mit.W;
-      this.backtree_img.height = mit.H;
+      this.backtree_img.height = 500;
 
 
       // Front Trees
@@ -60,7 +60,7 @@
       this.fronttree_img = mit.image.fronttrees;
 
       this.fronttree_img.width = mit.W;
-      this.fronttree_img.height = mit.H;
+      this.fronttree_img.height = 500;
 
 
       // Ground
@@ -69,7 +69,7 @@
       this.ground_img = mit.image.ground;
 
       this.ground_img.width = mit.W;
-      this.ground_img.height = mit.H;
+      this.ground_img.height = 500;
 
 
       // Grass
@@ -78,7 +78,7 @@
       this.grass_img = mit.image.grass;
 
       this.grass_img.width = mit.W;
-      this.grass_img.height = mit.H;
+      this.grass_img.height = 500;
 
 
       // Log on which pappu sits
@@ -114,7 +114,7 @@
           this.cloud_img,
 
           cloud_bg_vx_abs,
-          0,
+          this.cloud_img.height - mit.H,
           mit.W + this.cloud_bg_vx,
           mit.H,
 
@@ -126,7 +126,7 @@
         ctx.drawImage(
           this.cloud_img,
 
-          0, 0,
+          0, this.cloud_img.height - mit.H,
           cloud_bg_vx_abs,
           mit.H,
 
@@ -155,7 +155,7 @@
           this.backtree_img,
 
           backtree_bg_vx_abs,
-          0,
+          this.backtree_img.height - mit.H,
           mit.W + this.backtree_bg_vx,
           mit.H,
 
@@ -167,7 +167,7 @@
         ctx.drawImage(
           this.backtree_img,
 
-          0, 0,
+          0, this.backtree_img.height - mit.H,
           backtree_bg_vx_abs,
           mit.H,
 
@@ -198,7 +198,7 @@
           this.fronttree_img,
 
           fronttree_bg_vx_abs,
-          0,
+          this.fronttree_img.height - mit.H,
           mit.W + this.fronttree_bg_vx,
           mit.H,
 
@@ -210,7 +210,7 @@
         ctx.drawImage(
           this.fronttree_img,
 
-          0, 0,
+          0, this.fronttree_img.height - mit.H,
           fronttree_bg_vx_abs,
           mit.H,
 
@@ -239,7 +239,7 @@
           this.ground_img,
 
           ground_bg_vx_abs,
-          0,
+          this.ground_img.height - mit.H,
           mit.W + this.ground_bg_vx,
           mit.H,
 
@@ -251,7 +251,7 @@
         ctx.drawImage(
           this.ground_img,
 
-          0, 0,
+          0, this.ground_img.height - mit.H,
           ground_bg_vx_abs,
           mit.H,
 
@@ -283,7 +283,7 @@
           this.grass_img,
 
           grass_bg_vx_abs,
-          0,
+          this.grass_img.height - mit.H,
           mit.W + this.grass_bg_vx,
           mit.H,
 
@@ -295,7 +295,7 @@
         ctx.drawImage(
           this.grass_img,
 
-          0, 0,
+          0, this.grass_img.height - mit.H,
           grass_bg_vx_abs,
           mit.H,
 
@@ -372,35 +372,20 @@
     // Backgrounds have been made for 1000x500 dimensions
     draw: function(ctx) {
 
-      if (mit.start_btn_clicked) {
-        if (!this.fps || this.fps === 5000)
-          this.fps = mit.fps;
-      }
-      else {
-        this.fps = 5000;
-      }
+      // Draw Linear Gradient for real/pure BG (sky/water)
+      ctx.save();
+      ctx.fillStyle = this.sky_gradient;
+      ctx.fillRect(0, 0, mit.W, mit.H);
+      ctx.restore();
 
+      // Clouds
+      this.drawClouds(ctx);
+      
+      // Back Small Trees
+      this.drawBackTrees(ctx);
 
-      if (this.fps > 56) {
-
-        // Draw Linear Gradient for real/pure BG (sky/water)
-        ctx.save();
-        ctx.fillStyle = this.sky_gradient;
-        ctx.fillRect(0, 0, mit.W, mit.H);
-        ctx.restore();
-
-        // Clouds
-        this.drawClouds(ctx);
-        
-        // Back Small Trees
-        this.drawBackTrees(ctx);
-
-        // Front Big Trees
-        this.drawFrontTrees(ctx);
-      }
-      else {
-        this.drawCombinedBG(ctx);
-      }
+      // Front Big Trees
+      this.drawFrontTrees(ctx);
 
       // Drawing the initial wood log on which
       // Pappu gonna sit and bask in the cool and cozy
@@ -417,7 +402,7 @@
 
 
       // Increasing speed based on points
-      if (mit.score > 200 && !this.first_speed_inc) {
+      if (mit.score > 700 && !this.first_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;
@@ -427,7 +412,7 @@
         this.first_speed_inc = 1;
       }
 
-      if (mit.score > 1000 && !this.second_speed_inc) {
+      if (mit.score > 2000 && !this.second_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;
@@ -437,7 +422,7 @@
         this.second_speed_inc = 1;
       }
 
-      if (mit.score > 3000 && !this.third_speed_inc) {
+      if (mit.score > 5000 && !this.third_speed_inc) {
         this.cloud_bg_move_speed++;
         this.backtree_bg_move_speed++;
         this.fronttree_bg_move_speed++;

@@ -14,6 +14,9 @@
     this.w = 0;
     this.h = 0;
 
+    // Sound
+    this.sound = mit.audio.loadHit;
+    this.sound.volume = 0.7;
 
     // Head x/y
     this.head_x = 0;
@@ -119,10 +122,10 @@
       if (this.forks[this.forks.length-1]) {
         pos.x = this.forks[this.forks.length-1].x;
 
-        if (mit.score > 2500)
-          pos.x += utils.randomNumber(300,600);
+        if (mit.score > 1500)
+          pos.x += utils.randomNumber(200,500);
         else
-          pos.x += utils.randomNumber(500,800);
+          pos.x += utils.randomNumber(300,600);
       }
       else {
         pos.x = mit.W/1000 * 1050;
@@ -169,7 +172,7 @@
             fork.dig_y = mit.H - dig_img.height;
             // console.log(this.dig_img.width);
 
-            fork.y = 200 + utils.randomNumber(0,100);
+            fork.y = 300 + utils.randomNumber(0,100);
             fork.y += fork_head_img.height;
           }
 
@@ -203,7 +206,7 @@
       // Loop over forks and draw each of them
       forks.forEach(function(fork, index) {
 
-        fork.x -= mit.Backgrounds.ground_bg_move_speed;
+        fork.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
 
         if (fork.x + fork.w < 0) {
           ++dead_forks;
@@ -306,7 +309,9 @@
       // fork handle or not.
       if (utils.intersect(pappu_bounds, fork_bounds)) {
         // console.log(pappu_bounds, fork_bounds);
-        mit.gameOver();
+        if(!mit.Pappu.is_dead)
+          first_fork.sound.play();
+        mit.stopMotion();
       }
 
       // We'll have to check for collision with fork heads.
@@ -326,7 +331,9 @@
         pappu_bounds.end_y      >  fork_head_bounds.start_y+20 &&
         fork_head_bounds.end_y-20  >  pappu_bounds.start_y
       ) {
-        mit.gameOver();
+        if(!mit.Pappu.is_dead)
+          first_fork.sound.play();
+        mit.stopMotion();
       }
     }
 

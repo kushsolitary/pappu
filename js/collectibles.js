@@ -24,9 +24,8 @@
     // Collectible Type - read above
     this.type;
 
-    // Sound
-    this.sound = document.getElementById("ting");
-    this.sound.volume = 0.35;
+    this.sound = '';
+    this.sound.volume = 0.45;
 
     // Some collectible types may have subtypes
     // like coins of 50, 100, 500, 1000 and so on ...
@@ -105,7 +104,7 @@
     //types: ['invincible'],
 
     sub_types: {
-      coin: [50, 100, 500]
+      coin: [20, 60, 100]
     },
 
     init: function() {
@@ -125,17 +124,16 @@
     getCoinSpritePos: function(sub_type) {
 
       switch (sub_type) {
-        case 50:
+        case 20:
           // Yellow (first)
           return {x: 0, y: 0};
 
-        case 100:
+        case 60:
           // Pink (second)
           return {x: 30, y: 0};
 
-        case 500:
+        case 100:
           // Red (third)
-          // Pink (second)
           return {x: 60, y: 0};
 
         case 1000:
@@ -203,6 +201,24 @@
         // Type
         collec.type = this.types[utils.randomNumber(0, this.types.length-1)];
 
+        // Sound
+        switch (collec.type) {
+          case 'clone':
+            collec.sound = mit.audio.loadBite;
+            collec.sound.volume = 0.7;
+            break;
+
+          case 'coin':
+            collec.sound = mit.audio.loadCoin;
+            collec.sound.volume = 0.35;
+            break;
+
+          case 'invincible':
+            collec.sound = mit.audio.loadTing;
+            collec.sound.volume = 0.4;
+            break;
+        }
+
         // Choosing Sub types if any
         sub_types = this.sub_types[collec.type];
         if (sub_types)
@@ -228,7 +244,7 @@
           self.collecs.splice(i,1);
         }
 
-        collec.x -= mit.Backgrounds.ground_bg_move_speed;
+        collec.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
 
         collec.draw(ctx);
       });
@@ -252,6 +268,7 @@
 
           case 'coin':
             mit.score += collec.sub_type;
+            mit.bonus = collec.sub_type;
             break;
 
           case 'clone':
@@ -272,11 +289,12 @@
               mit.Pappu.invincibility_time = 5000 + prev_remaining_time;
             }*/
 
-            mit.Pappu.invincibility_start = new Date().getTime();
-            mit.Pappu.invincibility_time = 5000;
+            // mit.Pappu.invincibility_start = new Date().getTime();
+            mit.Pappu.invincibility_start = 0;
+            mit.Pappu.invincibility_time = 300;
 
             // Show timer
-            mit.ui.invincible_timer.show();
+            CocoonJS.App.forward("ui.invincible_timer.show();");
 
             break;
         }

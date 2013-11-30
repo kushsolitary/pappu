@@ -26,6 +26,10 @@
     // Height
     this.h;
 
+    // Sound
+    this.sound = mit.audio.loadHit;
+    this.sound.volume = 0.7;
+
     this.escape_x;
     this.escape_y;
     this.escape_w;
@@ -120,15 +124,16 @@
           var branch = new mit.Branch();
 
           var pos = this.getRandomBranchPos();
-          branch.x = pos.x;
-          branch.y = 0;
 
           branch.w = this.branch_img.width;
           branch.h = this.branch_img.height;
+          
+          branch.x = pos.x;
+          branch.y = utils.randomNumber(0, - ((branch.h / 2) - 75));
 
           // Escape Positions
           branch.escape_x = branch.x;
-          branch.escape_y = branch.y + utils.randomNumber(0, branch.h-150);
+          branch.escape_y = branch.y + (branch.h / 2) - 75;
 
           // Escape Area's Width/Height
           branch.escape_w = this.branch_img.width;
@@ -151,7 +156,7 @@
       // Loop over branches and draw each of them
       branches.forEach(function(branch, index) {
 
-        branch.x -= mit.Backgrounds.ground_bg_move_speed;
+        branch.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
 
         if (branch.x + branch.w < 0) {
           dead_branch++;
@@ -168,9 +173,10 @@
         ctx.drawImage(branch_img, branch.x, branch.y);
 
         // Draw Escapes
+        /*
         ctx.save();
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'white';
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = 'green';
         ctx.fillRect(
           branch.escape_x,
           branch.escape_y,
@@ -178,6 +184,7 @@
           branch.escape_h
         );
         ctx.restore();
+        */
       });
 
       if (dead_branch) {
@@ -208,7 +215,9 @@
         var escape_bounds = first_branch.getEscapeBounds();
 
         if (!utils.intersect(pappu_bounds, escape_bounds)) {
-          mit.gameOver();
+          if(!mit.Pappu.is_dead)
+            first_branch.sound.play();
+          mit.stopMotion();
         }
 
       }

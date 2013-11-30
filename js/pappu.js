@@ -3,7 +3,7 @@
   // There will be only 1 Pappu
 
   mit.Pappu = {
-    x: 50,
+    x: 40,
     y: 10,
     w: 50,
     h: 50,
@@ -12,6 +12,8 @@
     invincibility_start: 0,
     invincibility_time: 0,
     clones: [],
+
+    is_dead: false,
 
     rotate_angle: 0,
 
@@ -26,7 +28,7 @@
     max_fly_frame_count: 10,
 
     init: function() {
-      this.sound = document.getElementById("flap");
+      this.sound = mit.audio.loadFlap;
 
       // Initializing Pappu Sprite, lolzzz..!
       // this.sprite = new Image();
@@ -55,7 +57,7 @@
       this.invincibility_start = 0;
       this.invincible_timer = 0;
 
-      mit.ui.invincible_timer.hide();
+      // CocoonJS.App.forward("ui.invincible_timer.hide();");
     },
 
     draw: function(ctx) {
@@ -83,7 +85,7 @@
           this.rotate_angle -= 2;
         }
       }
-      else if (mit.game_over) {
+      else if (this.is_dead) {
         // draw() is called as long as
         // pappu hasnt hit boundaries and over'ed the game :P
 
@@ -106,15 +108,26 @@
         ctx.globalAlpha = 0.4;
 
         // Current time
-        var cur_time = new Date().getTime();
-        var time_diff = cur_time - this.invincibility_start;
+        // var cur_time = new Date().getTime();
+        // var time_diff = cur_time - this.invincibility_start;
+        this.invincibility_start++;
 
-        var timer_progress = (time_diff/this.invincibility_time) * 100;
+        var timer_progress = (this.invincibility_start/this.invincibility_time) * 100;
 
         if (timer_progress > 100)
           this.undoInvincible();
-        else
-          mit.ui.invincible_loader.css('width', timer_progress + '%');
+        else {
+
+          ctx.save();
+          ctx.rotate(utils.toRadian(-this.rotate_angle));
+          ctx.globalAlpha = 0.8;
+          // CocoonJS.App.forward("ui.invincible_loader.css('width', " + (100 - timer_progress) + " + '%')");
+          elem.game_screen.invinceBar.draw(ctx, -this.w/2, -this.h/2, 100 - timer_progress);
+          ctx.rotate(utils.toRadian(this.rotate_angle));
+          ctx.restore();
+
+          ctx.globalAlpha = 0.4;
+        }
 
         // console.log(timer_progress)
       }
@@ -195,13 +208,22 @@
       // Crossed Sides ?
       // `c` stands for crossed
 
-      var ctop = (this.y < 0 - this.h);
+      var ctop = (this.y < 0);
       var cbtm = (this.y > mit.H);
       var cleft = (this.x < 0);
-      var crgt = (this.x > mit.W);
+      var crgt = (this.x + this.w > mit.W);
+
+      // console.log(ctop, cbtm, cleft, crgt);
 
       // return true if crossed any sides
-      if (ctop || cbtm || cleft || crgt) {
+
+      if(ctop) {
+        mit.audio.loadHit.play();
+        mit.stopMotion();
+        return false;
+      }
+
+      if (cbtm || cleft || crgt) {
         return true;
       }
 
@@ -323,8 +345,7 @@
       // Check collisions with pakias
       pakias.forEach(function(pakia, pakia_index) {
         var pakia_bound = pakia.getBounds();
-
-        var pakia_dead = 0;
+        var pakia_dead = false;
 
         self.clones.forEach(function(clone) {
 
@@ -333,10 +354,20 @@
 
           var clone_bound = clone.getBounds();
 
-          if (utils.intersect(pakia_bound, clone_bound)) {
-            mit.PakiaUtils.cur_pakia = false;
+          if(!mit.PakiaUtils.cur_pakia.isDead && (mit.PakiaUtils.cur_pakia.h/2 + mit.PakiaUtils.cur_pakia.y < H)) {
+            if (utils.intersect(pakia_bound, clone_bound)) {
+              // mit.PakiaUtils.cur_pakia = false;
+              mit.audio.loadHit.play();
+              pakia_dead = mit.PakiaUtils.died(mit.PakiaUtils.cur_pakia);
 
-            pakia_dead = 1;
+              if(!mit.PakiaUtils.cur_pakia.has_stuck) {
+                mit.bonus = 100;
+                mit.score += 100;
+              }
+
+              mit.PakiaUtils.cur_pakia.has_stuck = 1;
+
+            }
           }
 
           return;

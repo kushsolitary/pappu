@@ -9,34 +9,42 @@
       return size;
   };
 
-  // Preloading audio stuff
-  var loadMusic = document.getElementById("start"),
-      loadAngry = document.getElementById("angry_jump"), 
-      loadSad = document.getElementById("sad_jump"),
-      loadHappy = document.getElementById("happy_jump"),
-      loadFlap = document.getElementById("flap"),
-      loadTing = document.getElementById("ting");
-
   // Preloading image stuff
 
-  mit.audio = [
-    loadMusic, 
-    loadAngry, 
-    loadSad, 
-    loadHappy,
-    loadFlap, 
-    loadTing,
-  ];
+  mit.audio = {
+    loadMusic: 'sound/music.ogg', 
+    loadAngry: 'sound/jump1.ogg', 
+    loadSad: 'sound/jump2.ogg', 
+    loadHappy: 'sound/jump3.ogg',
+    loadFlap: 'sound/flap.ogg', 
+    loadTing: 'sound/ting.ogg',
+    loadBite: 'sound/bite.ogg',
+    loadCoin: 'sound/coin.ogg',
+    loadHit: 'sound/hit.ogg',
+    loadButton: 'sound/button.ogg'
+  };
+
+    for (var name in mit.audio) {
+      var url = mit.audio[name];
+
+      // Create an audio node
+      var audio_el = document.createElement('audio');
+      audio_el.id = name;
+
+        audio_el.src = url;
+        audio_el.load();
+        mit.audio[name] = audio_el;
+    }
 
   var images = {
     angry_pakia : "img/angry_pakia.png",
     backtrees : "img/back_trees.png",
     berries : "img/berries.png",
-    bg_combined: "img/bg_combined.png",
-    branch : "img/branch.png",
+    // bg_combined: "img/bg_combined.png",
+    branch : "img/branch_new.png",
     clouds : "img/clouds.png",
     coins : "img/coins.png",
-    controls : "img/controls.png",
+    // controls : "img/controls.png",
     //dig : "img/dig.png",
     fork_handle : "img/fork_handle.png",
     fork_head : "img/fork_head.png",
@@ -58,49 +66,9 @@
 
   // Get the size of an Obj
   var size = Obj.size(images);
-  size += mit.audio.length;
 
   var counter = 0,
       percent = 0;
-
-  var loading = document.getElementById("bar");
-  var loader = document.getElementById("loading");
-  var loadText = document.getElementById("loadText");
-
-  if(!($.browser.webkit && !$.browser.chrome)) {
-    for(var i = 0; i < mit.audio.length; i++) {
-      var file = mit.audio[i];
-
-      if (isNaN(file.duration)) { 
-        file.addEventListener("loadeddata", function() {
-          counter++;
-          percent = Math.floor((counter/size*100));
-          loading.style.width = percent + "%";
-          loadText.innerHTML = "Loading... " + percent + "%";
-
-          if(percent >= 100) {
-            $("#loading").fadeOut();
-            mit.main();
-          }
-        });
-      }
-
-      else {
-        counter++;
-        percent = Math.floor((counter/size*100));
-        loading.style.width = percent + "%";
-        loadText.innerHTML = "Loading... " + percent + "%";
-
-        if(percent >= 100) {
-          $("#loading").fadeOut();
-          mit.main();
-        }
-
-      }
-    }
-  }
-
-  else {counter += mit.audio.length}
 
   for(var src in images) {
     mit.image[src] = new Image();
@@ -108,11 +76,8 @@
       counter++;
 
       percent = Math.floor(((counter)/size*100));
-      loading.style.width = percent + "%";
-      loadText.innerHTML = "Loading... " + percent + "%";
       
       if(percent >= 100) {
-        $("#loading").fadeOut();
         mit.main();
       }
 
