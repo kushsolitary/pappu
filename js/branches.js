@@ -156,7 +156,7 @@
       // Loop over branches and draw each of them
       branches.forEach(function(branch, index) {
 
-        branch.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
+        branch.x -= utils.f2T(delta, mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed);
 
         if (branch.x + branch.w < 0) {
           dead_branch++;

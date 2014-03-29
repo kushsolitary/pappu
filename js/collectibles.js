@@ -244,7 +244,7 @@
           self.collecs.splice(i,1);
         }
 
-        collec.x -= mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed;
+        collec.x -= utils.f2T(delta, mit.Backgrounds.ground_bg_move_speed * mit.Backgrounds.common_bg_speed);
 
         collec.draw(ctx);
       });

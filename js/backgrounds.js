@@ -137,7 +137,7 @@
         );
       }
       catch(e) {}
-      this.cloud_bg_vx -= this.cloud_bg_move_speed;
+      this.cloud_bg_vx -= utils.f2T(delta, this.cloud_bg_move_speed);
 
       if (-this.cloud_bg_vx >= mit.W) {
         this.cloud_bg_vx = 0;
@@ -180,7 +180,7 @@
       catch(e) {}
 
       if (mit.game_started)
-        this.backtree_bg_vx -= this.backtree_bg_move_speed * this.common_bg_speed;
+        this.backtree_bg_vx -= utils.f2T(delta, this.backtree_bg_move_speed * this.common_bg_speed);
 
       if (-this.backtree_bg_vx >= mit.W) {
         this.backtree_bg_vx = 0;
@@ -222,7 +222,7 @@
       }
       catch(e) {}
       if (mit.game_started)
-        this.fronttree_bg_vx -= this.fronttree_bg_move_speed * this.common_bg_speed;
+        this.fronttree_bg_vx -= utils.f2T(delta, this.fronttree_bg_move_speed * this.common_bg_speed);
 
       if (-this.fronttree_bg_vx >= mit.W) {
         this.fronttree_bg_vx = 0;
@@ -264,7 +264,7 @@
       catch(e) {}
 
       if (mit.game_started)
-        this.ground_bg_vx -= this.ground_bg_move_speed * this.common_bg_speed;
+        this.ground_bg_vx -= utils.f2T(delta, this.ground_bg_move_speed * this.common_bg_speed);
 
       if (-this.ground_bg_vx >= mit.W) {
         this.ground_bg_vx = 0;
@@ -308,7 +308,7 @@
       catch(e) {}
 
       if (mit.game_started)
-        this.grass_bg_vx -= this.grass_bg_move_speed * this.common_bg_speed;
+        this.grass_bg_vx -= utils.f2T(delta, this.grass_bg_move_speed * this.common_bg_speed);
 
       if (-this.grass_bg_vx >= mit.W) {
         this.grass_bg_vx = 0;
@@ -324,7 +324,7 @@
       ctx.drawImage(this.log_img, this.log_x, this.log_y);
 
       if (mit.game_started) {
-        this.log_x -= this.ground_bg_move_speed * this.common_bg_speed;
+        this.log_x -= utils.f2T(delta, this.ground_bg_move_speed * this.common_bg_speed);
       }
     },
 
@@ -361,7 +361,7 @@
       catch(e) {}
 
       if (mit.game_started)
-        this.combined_bg_vx -= this.combined_bg_move_speed * this.common_bg_speed;
+        this.combined_bg_vx -= utils.f2T(delta, this.combined_bg_move_speed * this.common_bg_speed);
 
       if (-this.combined_bg_vx >= mit.W) {
         this.combined_bg_vx = 0;

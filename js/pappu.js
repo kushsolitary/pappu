@@ -82,7 +82,7 @@
         this.sound.play();
 
         if (this.rotate_angle > -15) {
-          this.rotate_angle -= 2;
+          this.rotate_angle -= utils.f2T(delta, 2);
         }
       }
       else if (this.is_dead) {
@@ -90,11 +90,11 @@
         // pappu hasnt hit boundaries and over'ed the game :P
 
         // Game Over Gugglu!
-        this.rotate_angle += 4;
+        this.rotate_angle += utils.f2T(delta, 4);
       }
       else {
         if (this.rotate_angle < 30) {
-          this.rotate_angle += 2;
+          this.rotate_angle += utils.f2T(delta, 2);
         }
       }
 
@@ -110,7 +110,7 @@
         // Current time
         // var cur_time = new Date().getTime();
         // var time_diff = cur_time - this.invincibility_start;
-        this.invincibility_start++;
+        this.invincibility_start += utils.f2T(delta, 1);
 
         var timer_progress = (this.invincibility_start/this.invincibility_time) * 100;
 
@@ -266,8 +266,8 @@
         if (clone.x > mit.W || clone.y < 0 || clone.y > mit.H)
           self.clones.splice(index, 1);
 
-        clone.x += utils.randomNumber(5, 10);
-        clone.y += utils.randomNumber(-20, 20);
+        clone.x += utils.f2T(delta, utils.randomNumber(5, 10));
+        clone.y += utils.f2T(delta, utils.randomNumber(-20, 20));
 
         clone.draw(ctx);
       });

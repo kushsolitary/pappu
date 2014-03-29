@@ -28,8 +28,8 @@
         }
         ctx.restore();
 
-        this.y -= 4;
-        this.opacity -= 0.02;
+        this.y -= utils.f2T(delta, 4) ;
+        this.opacity -= utils.f2T(delta, 0.02);
 
         mit.bonus = false;
     }

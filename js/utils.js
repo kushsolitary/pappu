@@ -35,4 +35,19 @@
     
   };
 
+  // Converting frame based animations to time based animations
+  // 'Delta' is the difference between 'now' and 'then'.
+  // 'Speed' is the original speed of frame based anims
+  utils.f2T = function(delta, speed) {
+    /*
+    if (!speed)
+      speed = delta;
+    */
+    //return Speed;
+    // if not fixed then take from global
+    delta = 1000/fixed_fps;
+
+    return (speed * delta) * (60 / 1000); 
+  };
+
 }());

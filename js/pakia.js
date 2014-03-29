@@ -151,13 +151,13 @@
       this.cur_pakia.vy += this.cur_pakia.gravity;
 
       if(this.cur_pakia.isDead == false) {
-        this.cur_pakia.x += this.cur_pakia.vx;
-        this.cur_pakia.y += this.cur_pakia.vy;
+        this.cur_pakia.x += utils.f2T(delta, this.cur_pakia.vx);
+        this.cur_pakia.y += utils.f2T(delta, this.cur_pakia.vy);
       }
       else {
         this.cur_pakia.rotate_angle += 10;
-        this.cur_pakia.x += -1;
-        this.cur_pakia.y += this.cur_pakia.vy;
+        this.cur_pakia.x += utils.f2T(delta, -1);
+        this.cur_pakia.y += utils.f2T(delta, this.cur_pakia.vy);
       }
       // console.log(this.cur_pakia.x)  
 
